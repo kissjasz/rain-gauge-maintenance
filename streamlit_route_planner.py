@@ -52,8 +52,238 @@ with st.sidebar:
 
 st.markdown("""
     <style>
+        /* ========== Modern Table Styling ========== */
+
+        /* Dataframe Container */
+        div[data-testid="stDataFrame"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Table Headers */
+        .dataframe thead tr th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            font-weight: 700 !important;
+            text-align: center !important;
+            padding: 15px 10px !important;
+            font-size: 14px !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none !important;
+        }
+
+        /* Table Rows */
+        .dataframe tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dataframe tbody tr:hover {
+            background-color: rgba(102, 126, 234, 0.1) !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        /* Table Cells */
+        .dataframe tbody tr td {
+            padding: 12px 10px !important;
+            text-align: center !important;
+            font-size: 13px !important;
+            color: #2c3e50;
+        }
+
+        /* Alternating Row Colors */
+        .dataframe tbody tr:nth-child(even) {
+            background-color: rgba(102, 126, 234, 0.03);
+        }
+
+        /* Status Badge Styling */
+        .status-online {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(56, 239, 125, 0.3);
+        }
+
+        .status-timeout {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+        }
+
+        .status-disconnect {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(250, 112, 154, 0.3);
+        }
+
+        .status-offline {
+            background: linear-gradient(135deg, #868f96 0%, #596164 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(134, 143, 150, 0.3);
+        }
+
+        .status-unknown {
+            background: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(189, 195, 199, 0.3);
+        }
+
+        /* Expander Styling */
+        .streamlit-expanderHeader {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 10px 15px;
+        }
+
+        /* Tab Styling */
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 8px;
+            background-color: transparent;
+        }
+
+        .stTabs [data-baseweb="tab"] {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 10px 10px 0 0;
+            padding: 10px 20px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .stTabs [data-baseweb="tab"]:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            transform: translateY(-2px);
+        }
+
+        .stTabs [aria-selected="true"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+        }
+
+        /* Metric Cards */
+        [data-testid="stMetricValue"] {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* Sidebar Styling */
         section[data-testid="stSidebar"][aria-expanded="true"]{
             width: 0px;
+        }
+
+        /* Modern Cards */
+        .modern-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .modern-card:hover {
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Page Title Styling */
+        h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800 !important;
+            text-align: center;
+            padding: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Subheader Styling */
+        h2, h3 {
+            color: #667eea;
+            font-weight: 700;
+            margin-top: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        /* Info/Warning/Error Box Styling */
+        .stAlert {
+            border-radius: 10px;
+            border-left: 5px solid;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Button Styling */
+        .stButton > button {
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stButton > button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Text Input Styling */
+        .stTextInput > div > div > input {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .stTextInput > div > div > input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Selectbox Styling */
+        .stSelectbox > div > div {
+            border-radius: 10px;
+        }
+
+        /* Checkbox Styling */
+        .stCheckbox {
+            padding: 5px 0;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -452,6 +682,7 @@ def init_session_state():
         'pending_station': None,
         'pending_ts': 0.0,
         'show_tooltip': True,
+        'map_color_mode': 'days',  # 'days' หรือ 'status'
     }
 
     # ใช้ setdefault เพื่อประสิทธิภาพที่ดีกว่า
@@ -596,8 +827,15 @@ def calculate_optimal_route(
         return [], 0.0
 
 # ✅ Interactive Map Functions
-def create_interactive_map(df_filtered: pd.DataFrame, include_base: bool = False, show_tooltip: bool = True):
-    """สร้างแผนที่ interactive พร้อม error handling"""
+def create_interactive_map(df_filtered: pd.DataFrame, include_base: bool = False, show_tooltip: bool = True, color_mode: str = 'days'):
+    """สร้างแผนที่ interactive พร้อม error handling
+
+    Args:
+        df_filtered: DataFrame ของสถานี
+        include_base: แสดงฐานหลักหรือไม่
+        show_tooltip: แสดง tooltip หรือไม่
+        color_mode: โหมดการแสดงสี ('days' = จำนวนวันบำรุงรักษา, 'status' = สถานะสถานี)
+    """
     folium = get_folium()
     if folium is None:
         st.error("❌ กรุณาติดตั้ง: pip install folium")
@@ -652,21 +890,8 @@ def create_interactive_map(df_filtered: pd.DataFrame, include_base: bool = False
                 # เช็คประเภทของสถานี
                 is_base_station = station_id == BASE_LOCATION['station_id']
                 is_selected = station_id in st.session_state.get('selected_stations', [])
-                
-                # กำหนดสีและไอคอนตามประเภท
-                if is_base_station:
-                    color = 'green'
-                    icon = 'home'
-                    prefix = 'fa'
-                elif is_selected:
-                    color = 'red'
-                    icon = 'star'
-                    prefix = 'fa'
-                else:
-                    color = 'blue'
-                    icon = 'tint'
-                    prefix = 'fa'
-                # ... หลังจากกำหนด is_base_station, is_selected, color, icon แล้ว
+
+                # ดึงข้อมูลจำนวนวันไม่ได้บำรุงรักษา
                 dnm_val = None
                 try:
                     row_info = df_filtered[df_filtered['station_id'] == station_id]
@@ -679,6 +904,50 @@ def create_interactive_map(df_filtered: pd.DataFrame, include_base: bool = False
                     f"<div style='margin-top:4px;'>🛠️ ไม่ได้บำรุงมา <b>{int(dnm_val)}</b> วัน</div>"
                     if pd.notna(dnm_val) else ""
                 )
+
+                # กำหนดสีและไอคอนตามโหมดที่เลือก
+                if is_base_station:
+                    color = 'green'
+                    icon = 'home'
+                    prefix = 'fa'
+                elif color_mode == 'status':
+                    # โหมดแสดงสีตามสถานะสถานี
+                    station_status = str(row.get('status', 'UNKNOWN')).upper()
+                    if is_selected:
+                        icon = 'star'
+                    else:
+                        icon = 'tint'
+                    prefix = 'fa'
+
+                    # กำหนดสีตามสถานะ (ใช้สีที่ Folium รองรับเท่านั้น)
+                    if station_status == 'ONLINE':
+                        color = 'green'      # เขียว = ออนไลน์
+                    elif station_status == 'TIMEOUT':
+                        color = 'orange'     # ส้ม = Timeout (Folium ไม่รองรับ yellow)
+                    elif station_status == 'DISCONNECT':
+                        color = 'red'        # แดง = ขาดการเชื่อมต่อ
+                    elif station_status == 'OFFLINE':
+                        color = 'darkred'    # แดงเข้ม = ออฟไลน์
+                    else:  # UNKNOWN
+                        color = 'gray'       # เทา = ไม่ทราบสถานะ
+                else:
+                    # โหมดแสดงสีตามจำนวนวันบำรุงรักษา (default)
+                    if is_selected:
+                        icon = 'star'
+                    else:
+                        icon = 'tint'
+                    prefix = 'fa'
+                    # กำหนดสีตามจำนวนวัน
+                    if dnm_val is None or not pd.notna(dnm_val):
+                        color = "blue"
+                    else:
+                        v = int(dnm_val)
+                        if v > 60:
+                            color = "red"       # > 60 วัน = แดง
+                        elif v > 31:
+                            color = "orange"    # 32–60 วัน = ส้ม
+                        else:
+                            color = "green"     # ≤ 31 วัน = เขียว
                 # สร้าง popup text
                 if is_base_station:
                     popup_text = f"""
@@ -714,19 +983,7 @@ def create_interactive_map(df_filtered: pd.DataFrame, include_base: bool = False
                     <small style="color:#666;"><a href="{build_google_maps_link(lat, lon)}" target="_blank">📍 เปิดเส้นทางจากตำแหน่งของคุณ</a></small>
                     </div>
                     """
-                        
-                def color_by_days(d):
-                    if d is None or not pd.notna(d): 
-                        return "blue"
-                    v = int(d)
-                    if v > 60: 
-                        return "red"       # > 60 วัน = แดง
-                    if v > 31: 
-                        return "orange"    # 32–60 วัน = เหลือง
-                    return "green"         # ≤ 31 วัน = เขียว
 
-                if not is_base_station:
-                    color = color_by_days(dnm_val)
                 # ทำ tooltip แสดงรหัสถังตลอดเวลา
                 label = f"{station_id} | {str(row.get('status','UNKNOWN'))}"
                 tooltip_obj = folium.Tooltip(label, permanent=True, direction="top", sticky=False) if show_tooltip else None
@@ -817,16 +1074,62 @@ def main():
         # ตารางสถานะจาก stations.json
         st.subheader("📊 ตารางสถานะจากไฟล์ stations.json")
         if 'status' in df_filtered.columns:
-            tabs = st.tabs(["TIMEOUT", "DISCONNECT", "OFFLINE", "ONLINE", "UNKNOWN"])            
+            tabs = st.tabs(["🔴 TIMEOUT", "⚠️ DISCONNECT", "⚫ OFFLINE", "🟢 ONLINE", "❓ UNKNOWN"])
             status_cols = [c for c in ["station_id","name_th","status","date","battery_v","solar_volt_v","temperature_c","humidity_pct","rain","lat","lon"] if c in df_filtered.columns]
             status_map = {"TIMEOUT":0, "DISCONNECT":1, "OFFLINE":2, "ONLINE":3, "UNKNOWN":4}
+
+            # Define color mapping for status
+            status_colors = {
+                "ONLINE": "#38ef7d",      # Green
+                "TIMEOUT": "#f5576c",     # Red/Pink
+                "DISCONNECT": "#fee140",  # Yellow
+                "OFFLINE": "#596164",     # Gray
+                "UNKNOWN": "#2c3e50"      # Dark Gray
+            }
+
             for st_name, idx in status_map.items():
                 with tabs[idx]:
                     sub = df_filtered[df_filtered['status'].str.upper() == st_name] if 'status' in df_filtered.columns else pd.DataFrame()
                     if not sub.empty:
-                        st.dataframe(sub[status_cols], use_container_width=True, hide_index=True)
+                        # Create a styled dataframe
+                        def highlight_status(row):
+                            color = status_colors.get(st_name, "#ffffff")
+                            return [f'background-color: {color}20' for _ in row]
+
+                        styled_df = sub[status_cols].style.apply(highlight_status, axis=1)
+
+                        # Format numeric columns
+                        format_dict = {}
+                        if 'battery_v' in status_cols:
+                            format_dict['battery_v'] = '{:.2f}V'
+                        if 'solar_volt_v' in status_cols:
+                            format_dict['solar_volt_v'] = '{:.2f}V'
+                        if 'temperature_c' in status_cols:
+                            format_dict['temperature_c'] = '{:.1f}°C'
+                        if 'humidity_pct' in status_cols:
+                            format_dict['humidity_pct'] = '{:.1f}%'
+
+                        if format_dict:
+                            styled_df = styled_df.format(format_dict, na_rep='-')
+
+                        st.dataframe(styled_df, use_container_width=True, hide_index=True)
+
+                        # Show summary statistics
+                        col1, col2, col3 = st.columns(3)
+                        with col1:
+                            st.metric("จำนวนสถานี", len(sub))
+                        with col2:
+                            if 'battery_v' in sub.columns:
+                                avg_battery = sub['battery_v'].mean()
+                                if pd.notna(avg_battery):
+                                    st.metric("Battery เฉลี่ย", f"{avg_battery:.2f}V")
+                        with col3:
+                            if 'temperature_c' in sub.columns:
+                                avg_temp = sub['temperature_c'].mean()
+                                if pd.notna(avg_temp):
+                                    st.metric("อุณหภูมิเฉลี่ย", f"{avg_temp:.1f}°C")
                     else:
-                        st.caption("ไม่มีสถานีสถานะ " + st_name)
+                        st.info(f"ไม่มีสถานีสถานะ {st_name} 🎉")
         else:
             st.caption("ไฟล์ stations.json ไม่มีคอลัมน์สถานะให้แสดงตาราง")
 
@@ -836,20 +1139,95 @@ def main():
         st.sidebar.metric("สถานีที่เลือก", len(st.session_state.get('selected_stations', [])))
         
         # แสดงตารางข้อมูล
-        with st.expander("📋 รายชื่อสถานี", expanded=False):
+        with st.expander("📋 รายชื่อสถานีทั้งหมด", expanded=False):
             if not df_filtered.empty:
-                display_columns = ['station_id', 'name_th', 'lat', 'lon']
+                display_columns = ['station_id', 'name_th', 'lat', 'lon', 'status', 'battery_v', 'temperature_c']
                 available_columns = [col for col in display_columns if col in df_filtered.columns]
-                st.dataframe(df_filtered[available_columns], use_container_width=True)
+
+                # Create styled dataframe
+                display_df = df_filtered[available_columns].copy()
+
+                # Style the dataframe
+                def color_status(val):
+                    """Color code status values"""
+                    if pd.isna(val):
+                        return ''
+                    val_upper = str(val).upper()
+                    colors = {
+                        'ONLINE': 'background-color: #38ef7d20; color: #11998e; font-weight: bold',
+                        'TIMEOUT': 'background-color: #f5576c20; color: #f5576c; font-weight: bold',
+                        'DISCONNECT': 'background-color: #fee14020; color: #fa709a; font-weight: bold',
+                        'OFFLINE': 'background-color: #59616420; color: #596164; font-weight: bold',
+                        'UNKNOWN': 'background-color: #2c3e5020; color: #2c3e50; font-weight: bold'
+                    }
+                    return colors.get(val_upper, '')
+
+                styled_df = display_df.style
+
+                # Apply status coloring if status column exists
+                if 'status' in available_columns:
+                    styled_df = styled_df.applymap(color_status, subset=['status'])
+
+                # Format numeric columns
+                format_dict = {}
+                if 'lat' in available_columns:
+                    format_dict['lat'] = '{:.4f}'
+                if 'lon' in available_columns:
+                    format_dict['lon'] = '{:.4f}'
+                if 'battery_v' in available_columns:
+                    format_dict['battery_v'] = '{:.2f}V'
+                if 'temperature_c' in available_columns:
+                    format_dict['temperature_c'] = '{:.1f}°C'
+
+                if format_dict:
+                    styled_df = styled_df.format(format_dict, na_rep='-')
+
+                st.dataframe(styled_df, use_container_width=True, hide_index=True, height=400)
+
+                # Show quick stats
+                st.markdown("---")
+                col1, col2, col3, col4 = st.columns(4)
+                with col1:
+                    st.metric("ทั้งหมด", len(display_df))
+                with col2:
+                    if 'status' in df_filtered.columns:
+                        online_count = len(df_filtered[df_filtered['status'].str.upper() == 'ONLINE'])
+                        st.metric("🟢 Online", online_count)
+                with col3:
+                    if 'status' in df_filtered.columns:
+                        offline_count = len(df_filtered[df_filtered['status'].str.upper().isin(['OFFLINE', 'DISCONNECT', 'TIMEOUT'])])
+                        st.metric("🔴 Offline", offline_count)
+                with col4:
+                    if 'battery_v' in df_filtered.columns:
+                        avg_battery = df_filtered['battery_v'].mean()
+                        if pd.notna(avg_battery):
+                            st.metric("🔋 Battery", f"{avg_battery:.2f}V")
             else:
                 st.warning("ไม่มีข้อมูลที่ตรงกับเงื่อนไขการค้นหา")
         
         # Interactive Map Section
         st.subheader("🗺️ แผนที่ Interactive สำหรับเลือกสถานี")
-        
-        # สวิตช์อยู่เหนือแผนที่
-        show_tooltip = st.toggle("แสดง Tooltip", value=st.session_state.get("show_tooltip", True), key="show_tooltip")
-        
+
+        # ตัวเลือกการแสดงผล
+        col_map_opt1, col_map_opt2 = st.columns(2)
+        with col_map_opt1:
+            show_tooltip = st.toggle("แสดง Tooltip", value=st.session_state.get("show_tooltip", True), key="show_tooltip")
+
+        with col_map_opt2:
+            color_mode = st.radio(
+                "โหมดสีของ Marker:",
+                options=['days', 'status'],
+                format_func=lambda x: '🛠️ จำนวนวันบำรุงรักษา' if x == 'days' else '📊 สถานะสถานี',
+                horizontal=True,
+                key="map_color_mode_radio"
+            )
+
+        # แสดงคำอธิบายสีตามโหมดที่เลือก
+        if color_mode == 'days':
+            st.info("🎨 **สีตามจำนวนวันบำรุงรักษา:**  🟢 ≤ 31 วัน  |  🟠 32-60 วัน  |  🔴 > 60 วัน  |  🔵 ไม่มีข้อมูล")
+        else:
+            st.info("🎨 **สีตามสถานะสถานี:**  🟢 ONLINE  |  🟡 TIMEOUT  |  🔴 DISCONNECT  |  🔴 OFFLINE  |  ⚫ UNKNOWN")
+
         # เพิ่มตัวเลือกรวมฐานหลัก
         col_base, col_info = st.columns([1, 2])
         with col_base:
@@ -906,7 +1284,7 @@ def main():
         if not df_filtered.empty or include_base:
             # บังคับรีสร้าง key ของแผนที่เมื่อมีการเลือก/ยกเลิก เพื่อให้ event handler ใหม่ทำงานเสมอ
             map_key = f"main_map_{st.session_state.get('map_version', 0)}"
-            map_obj = create_interactive_map(df_filtered, include_base, show_tooltip)
+            map_obj = create_interactive_map(df_filtered, include_base, show_tooltip, color_mode)
             if map_obj:
                 # แสดงคำแนะนำการใช้งาน
                 map_mode = st.session_state.get('map_mode', 'select')
