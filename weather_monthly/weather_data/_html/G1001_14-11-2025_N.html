@@ -1,0 +1,699 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+    <title>EEC</title>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="vendors/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="vendors/font-awesome/css/brands.css" rel="stylesheet" />
+    <link href="vendors/font-awesome/css/solid.css" rel="stylesheet" />
+
+
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet">
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" media="all" type="text/css" href="js/jquery-ui.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="js/jquery-ui-timepicker-addon.css" />
+
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-sliderAccess.js"></script>
+
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+            document.getElementById("forMD").style.display = 'block';
+        };
+
+        function loadMenu() {
+            function menu_toggle_click(element, cls) {
+                return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+            }
+            var el = document.getElementById('bodyMain');
+
+
+            //console.log(menu_toggle_click(el, 'nav-md'));
+            //console.log(menu_toggle_click(el, 'nav-sm'));
+
+            if (menu_toggle_click(el, 'nav-sm')) {
+                document.getElementById("forMD").style.display = 'block';
+                document.getElementById("forSM").style.display = 'none';
+
+            }
+            else if (menu_toggle_click(el, 'nav-md')) {
+                document.getElementById("forMD").style.display = 'none';
+                document.getElementById("forSM").style.display = 'block';
+
+            }
+
+        }
+
+        //window.onload = function () {
+        //    function hasClass(element, cls) {
+        //        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+        //    }
+
+        //    var el = document.getElementById('bodyMain');
+
+        //    alert(hasClass(el, 'nav-md'));
+        //    alert(hasClass(el, 'nav-sm'));
+
+        //};
+
+        function startTimeMaster() {
+            var today = new Date();
+            var h = today.getUTCHours();
+            var m = today.getUTCMinutes();
+            var s = today.getUTCSeconds();
+            m = checkTimeMaster(m);
+            s = checkTimeMaster(s);
+            document.getElementById('ctl00_lbTimeNowMaster').innerHTML = h + ":" + m+" UTC";
+            var t = setTimeout(startTimeMaster, 500);
+        }
+
+        function checkTimeMaster(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+
+        $(document).ready(function () {
+
+            startTimeMaster();
+
+
+        });
+
+    </script>
+
+
+
+    
+    <link href="css/Gridview.css" rel="stylesheet" />
+
+</head>
+
+<form name="aspnetForm" method="post" action="./Raingauge_Data.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNjAzNjEwMjM3D2QWAmYPZBYCAgMPZBYSZg8PFgIeCEltYWdlVXJsBTl+L0ljb25XZWIvTTHguJvguLDguJfguLTguKcgMDFf4LmS4LmQ4LmR4LmS4LmS4LmYXzE1My5qcGdkZAIBDw8WAh4EVGV4dAUIQ2h1bXBob25kZAICDw8WAh8BBQZQYXRoaW9kZAIDD2QWBAIBDw8WAh8BBQowNi8xMS8yMDI1ZGQCAw8PFgIfAQUIVGh1cnNkYXlkZAIHDw8WAh8ABRtGSUxFUy9VU0VSLzJfU19fNDY2MTI1Mi5qcGdkZAIIDw8WAh8BBQlVc2VyIFVzZXJkZAINDxYCHgdWaXNpYmxlZxYEAgEPDxYCHwEFNTxpbWcgc3JjPSdGSUxFUy9Vc2VyLzJfU19fNDY2MTI1Mi5qcGcnIHdpZHRoPScxNTBweCc+ZGQCBQ8PFgIfAmdkZAIODxYCHwJoZAIRD2QWAmYPZBYCAgEPZBYEAgEPEA8WAh4LXyFEYXRhQm91bmRnZBAVNA0tLT0gU2hvdyBhbGwgVUcxMDAxIC0gS2luZyBNb25na3V0IGlzIEluc3RpdHV0ZSBvZiBUZWNobm9sb2d5IExhZGtyYWJhbmcgUHJpbmNlIG9mIENodW1waG9uIENhbXB1cyA9RzEwMDIgLSBCYW4gQmFuZyBXYWVuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDVHMTAwMyAtIFNhbHVpIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID9HMTAwNCAtIEJhbiBUaGFtIENoYXJvZW4gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWw5RzEwMDUgLSBCYW4gUGFud2FuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsNkcxMDA2IC0gVGhhIFNhZSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDxHMTAwNyAtIEJhbiBXYW5nIE1haSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA3RzEwMDggLSBCYW5nIE1hayBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDtHMTAwOSAtIEJhbiBOYW0gQ2hhIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTAxMCAtIENob25nIE1haSBLYWVvIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsOUcxMDExIC0gS2hhbyBLaGFpIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsICxHMTAxMiAtICBOYSBQaGF5YSBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDtHMTAxMyAtIEJhbiBOYWkgSG9tIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID5HMTAxNCAtIEJhbiBLaGxvbmcgU29uZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbC1HMTAxNSAtIEx1bSBMYWllbmcgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCAsRzEwMTYgLSBTYWkgRGFlbmcgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCAhRzEwMTcgLSBCYW5ncmluIFRvd24gTXVuaWNpcGFsaXR5OkcxMDE4IC0gUmF0Y2hha3J1dCBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA+RzEwMTkgLSBCYW4gS2hpYW4gTmdhbSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCAuRzEwMjAgLSBQaG9uZyBQcmFzYXQgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDNHMTAyMSAtIEJhbiBIdWFpIEthaSBUb3IgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMjIgLSBDaGFuZyBLaHdhIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDtHMTAyMyAtIEtobG9uZyBOb2kgIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID9HMTAyNCAtIEJhbiBZYW5nIFBocm9uZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA1RzEwMjUgLSBQYSBXZSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMjYgLSBLaGxvbmcgUGhhIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDpHMTAyNyAtIFRha3VrIE51ZWEgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgPUcxMDI4IC0gVGhhbSBTaW5na2hvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCBARzEwMjkgLSBCYW4gQmFuZyBDaGFyb2VuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTAzMCAtIEJhbiBTYWkgVGhvbmcgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgPUcxMDMxIC0gVGhvbmcgTW9uZ2tvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMzIgLSBCYW5nIFNhcGhhbiBEaXN0cmljdCBBZ3JpY3VsdHVyYWwgRXh0ZW5zaW9uIE9mZmljZT5HMTAzMyAtIEJhbiBLaGxvbmcgTG9pIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIEJHMTAzNCAtIEJhbiBUaGFtIEtoaXJpd29uZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA8RzEwMzUgLSBCYW4gTm9uZyBIb2kgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgOEcxMDM2IC0gS2hhbyBMYW4gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgOUcxMDM3IC0gSHVhaSBZYW5nIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDpHMTAzOCAtIEtobG9uZyBXYW4gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgQEcxMDM5IC0gQmFuIERhbiBTaW5na2hvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCBJRzEwNDAgLSBOaWtob20gU2FuZyBUb24gRW5nIEtvIDEyIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID5HMTA0MSAtIEJhbiBOb25nIFB1bG9rIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDxHMTA0MiAtIEJhbiBUaHVuZyBLbyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCBKRzEwNDMgLSBQaHJha2hydSBOaXl1dHRoYW0gU3VudGhvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA8RzEwNDQgLSBCYW4gUnVhbSBUaGFpIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsM0cxMDQ1IC0gIEJhbiBOb25nIE1hc2FuZyBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDtHMTA0NiAtIEJhbiBOb25nIEthZSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbEFHMTA0NyAtIEJhbiBOb25nIFRhIE11YW5nIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTA0OCAtIEJhbiBLaGFvIENoYW8gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgQUcxMDQ5IC0gQmFuIFBocmFlayBUYWtocm8gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgM0cxMDUwIC0gUHJhbmJ1cmkgT3BlcmF0aW9uIGFuZCBNYWludGVuYW5jZSBQcm9qZWN0IBVHMTA5OSAtIFRlc3QgU3RhdGlvbmEVNAAFRzEwMDEFRzEwMDIFRzEwMDMFRzEwMDQFRzEwMDUFRzEwMDYFRzEwMDcFRzEwMDgFRzEwMDkFRzEwMTAFRzEwMTEFRzEwMTIFRzEwMTMFRzEwMTQFRzEwMTUFRzEwMTYFRzEwMTcFRzEwMTgFRzEwMTkFRzEwMjAFRzEwMjEFRzEwMjIFRzEwMjMFRzEwMjQFRzEwMjUFRzEwMjYFRzEwMjcFRzEwMjgFRzEwMjkFRzEwMzAFRzEwMzEFRzEwMzIFRzEwMzMFRzEwMzQFRzEwMzUFRzEwMzYFRzEwMzcFRzEwMzgFRzEwMzkFRzEwNDAFRzEwNDEFRzEwNDIFRzEwNDMFRzEwNDQFRzEwNDUFRzEwNDYFRzEwNDcFRzEwNDgFRzEwNDkFRzEwNTAFRzEwOTkUKwM0Z2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZxYBAgFkAg0PPCsAEQMADxYEHwNnHgtfIUl0ZW1Db3VudGZkARAWABYAFgAMFCsAAGQYAQUfY3RsMDAkQ29udGVudFBsYWNlSG9sZGVyMSRndldPUg88KwAMAQhmZJTgRXtJTgMyxbTkOusCuYQBJeBi2oGftUFDvLlm/ytr" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/EEC/WebResource.axd?d=fcwyLAlVAIlqKNvI4EQMb57-Svbl5v1wyjV3rX1cr14bWz2Hqho0-2sTKG8Qd-18OZjJINv_A6UyUZAme1XwAV8fvpIczRMFS13Zbz9di281&amp;t=636934885199995647" type="text/javascript"></script>
+
+
+<script src="/EEC/ScriptResource.axd?d=cSIszhM3Y7rGbYsFmJihE5W5R2b-ODXAhfXGQC2do_K-h6oTrtgvb6RUlZHvtjc7JnTxFwmnoYsXjJlw4XMdCjfxBQ00qe6LdK6IbD5jn5JRev4IYENBKH8IHnStcT_YCG1f6wtoAjdFPTpJSrDjq5pGcixc5l0UMmSh2540foXKFPBW5WgUo0ZHs76zDO0P0&amp;t=ffffffffa580202a" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="/EEC/ScriptResource.axd?d=u5WeCjfAH_tjbI83o6FIqFJMnl86ocXFshTwl8Dkq4GR_LbKZirsKjL21Rqj5utb3Cuf99jBy5DvRwjrH3UoB7yFamnr_HpZCOrTEv5qTc7iAtTo-urxQIInSjbmKsmylTnlgDSDAKig3tDlIAeJ520mXBEYPrwVgmvKCJibGhBh3H_5BEZGDy-st3BCz7lA0&amp;t=ffffffffa580202a" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="B5BC4BE0" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAEb9cs12uNC5Sq7lG/CbJppnDZfNwgonnUaZ//Y5yazcO8QxPp6rhsB5w3BVlJNGZvTgFzYgF9v5DbrsD9IcCQzF3JyFAFzWntjhIeHsr681dTsJbfUxMJz8C/MvzSPeli2CZZD/OA9qFqNnAbYh3cP0fAnC/+WSN2yMWsJQT2AeSYh0BQbwMeL/PwcIgREQgdvvThE5WkwT/IuMCdODCzHUiK+Rnkoc7J/kbSRUmgyd9+NqxZ8fucrhAfsM/jTgNFQ3YoQFkp4alLeUBmQ5Yd5i6Jv5OT8hNt3p9QhTaALOGtXnMx+lkToVGU4FsWW7afZmRYPhip/W2bFozMuvT+xdAIip1CoY7LvtcjuxytBqUMeX9P5YMX/+qbv73YBa+ncQmuLGJF9mjAo3rws5qHcMwnkOvriPBu4FhxdyT6mYLJeFKkUc7gXpgs8MGw2Xd9isAO8AXN35Cd2fEGL+k6IsPdTEm7XOfBZnfK/b2jVFTrqscUO3O6FpdJVOgt3OfSLfPjF1liYog9OwBlPXIq64rmJSa0YSrAPAyFJuGg8pHgo94cZXaJFBcNIktsh6bTX09kZ/YQPE2iDBQf8zvdUeK5qS8itROHjIh8quns7K9h/1WkgCNqHoci00kGQVCcuip4z9BPQU6Jy8gsAUX3wrVYbqo7p5TYAxPVaiMvlYrmnYactwlaBPC2/+PUE4PA4JkVTXPLBtZfUaRsve1UY1sY/JX1SgNK9taRdo2sXM/m1qjeFGy8w9tyojlCp+4XFeMERTajEAN57L0mWZKJV2Y579+cleetbYUehYWQ37chkaBbuTcS/PZfZSLfrQmk70Zx8Q7WwxYPXgUaz6E58kh3tq2hrlIK+tJU6KUQH3ob9s5vGt9AplbfegkPq/cp/M18G0YCeB1Qx7c11wD4LkjTZvITEK5kEeJqrx0emI+EQDESjK3ZyV5l2uiyZdtRI19uHf8+cq041L4+SPBcjKCr4itPvQXN6Vp+IWtdUtDSEXoXrzlIyR6NXGEtIWXrVHc5x9qvhxDolWs9QYRRYEp5cAudoN2H7EfDNY/9I8W90V9axsQ2SfwbaaAxo7mPsnk0NNcySg/qIRtfR1+OiGDJTyQ9vj1YGv4jZs/mC1FpBQBvQoHwog1dm/I8/B9h/Vj8HakDlJaXZCOnUU0wkuiUsNQ9NvcVwhEQX2lQt4ATBSnhdQ6PLGaa/Wvl9yq4jYFpR9alxfeFcundsRlQK2sMPbY8oeySlhAQePzywLeckE3cWehDMkF8OeyiCluFBJiv33meXCUBw6iIez2Y9TWSZBb9REayVS26KJ+LG+3poxwBmj2DDa4J4bXqGHFlzYx8/JHgokiLQAOr+MgWI/zB1htip3CL25e1CSOhNIo577hz3iSF6w3CyqfiEeCwmf+VUGOPJO8G15Gtkpj4DlxflhxYemmd3y2CHjI3HiiaRDVeabHxpAX1jE988crkV6mY1a0DEgIHBv106xWl8X7zD8qECTVEM7tVqDRC2Kfpg3hmo16L4AIjIQ7Cpnd6o=" />
+</div>
+    <body class="nav-md" id="bodyMain">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="Default.aspx" class="site_title"><i class="fa fa-dice-d6"></i>
+                                
+                                <img src="Logo/logo2.png" style='height: 50px' />
+                            </a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <!-- menu profile quick info -->
+                        <div class="profile clearfix">
+                            <div class="profile_pic">
+                                
+                                <img id="ctl00_IMG_ICON_SHOW" class="img-circle profile_img" src="IconWeb/M1%E0%B8%9B%E0%B8%B0%E0%B8%97%E0%B8%B4%E0%B8%A7%2001_%E0%B9%92%E0%B9%90%E0%B9%91%E0%B9%92%E0%B9%92%E0%B9%98_153.jpg" style="border-width:0px;" />
+                            </div>
+                            <div class="profile_info">
+                                
+                                <span>
+                                    <span id="ctl00_lbProvince">Chumphon</span>
+                                </span>
+                                <h2>
+                                    <span id="ctl00_lbStationSubName">Pathio</span>
+                                </h2>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div align="center" style="color: white">
+                            <span id="ctl00_lbDateNowMaster" style="font-weight:bold;">06/11/2025</span>
+                            <span id="ctl00_lbTimeNowMaster" style="font-weight:bold;">Thursday</span>
+                        </div>
+
+                        <!-- /menu profile quick info -->
+
+                        <br />
+
+                        <!-- sidebar menu -->
+
+
+
+                        <!-- Menu  -->
+
+                        <input type="hidden" name="ctl00$WebControl3$hdRaingauge" id="ctl00_WebControl3_hdRaingauge" />
+<input type="hidden" name="ctl00$WebControl3$hdUPPERAIR" id="ctl00_WebControl3_hdUPPERAIR" />
+<input type="hidden" name="ctl00$WebControl3$hdRADAR" id="ctl00_WebControl3_hdRADAR" />
+<input type="hidden" name="ctl00$WebControl3$hdAIRCRAFT_TRACKING" id="ctl00_WebControl3_hdAIRCRAFT_TRACKING" />
+<input type="hidden" name="ctl00$WebControl3$hdRADIOSONDE" id="ctl00_WebControl3_hdRADIOSONDE" />
+<input type="hidden" name="ctl00$WebControl3$hdMAWS" id="ctl00_WebControl3_hdMAWS" />
+
+
+
+
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <h3>Information</h3>
+        <ul class="nav side-menu">
+            <li><a href="Default.aspx"><i class="fas fa-chart-pie fa-lg"></i>&nbsp;&nbsp;Station Overview </a></li>
+            
+            <li ><a href="Airsystem.aspx"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Radiotheodolite Sounding</a></li>
+
+             <li >
+                <a id="forMD" style="display: none">
+                    <i class="fas fa-line-chart fa-lg"></i>
+                    &nbsp;Microwave Profiling<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Radiometer
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+
+                <a id="forSM" style="display: none">
+                    <i class="fas fa-line-chart fa-lg"></i>
+                    Microwave Profiling<br />
+                    Radiometer
+                   
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+
+
+                <ul class="nav child_menu">
+                    <li><a href="Sounding_System.aspx">Profiling Graph</a></li>
+                    <li><a href="Sounding_liquid.aspx">Integrated Liquid Graph</a></li>
+                    <li><a href="Sounding_Vapor.aspx">Integrated Vapor Graph</a></li>
+                </ul>
+            </li>
+
+             <li ><a><i class="fas fa-satellite-dish fa-lg"></i>&nbsp;&nbsp;Radar<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Radar_All.aspx">Radar All Products</a></li>
+                    <li><a href="Radar.aspx">Radar Single Product</a></li>
+                    <li><a href="Radar_Accumulate.aspx">Radar Accumulation</a></li>
+                   
+                </ul>
+            </li>
+
+            <li ><a><i class="fas fa-plane fa-lg"></i>&nbsp;&nbsp;Aircraft Tracking <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Aircraft_Tracking_Monitor.aspx">All Aircraft Monitoring</a></li>
+                    <li><a href="Aircraft_Tracking_Station.aspx">Single Aircraft Monitoring</a></li>
+                    <li><a href="Aircraft_Raw_Data_Lastest.aspx">Aircraft Telemetry Data</a></li>
+                </ul>
+            </li>
+            
+           
+
+           
+
+            
+
+            <li ><a><i class="fas fa-cloud-rain fa-lg"></i>&nbsp;&nbsp;Rain Gauge<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Raingauge_Overview.aspx">Rain Gauge Overview</a></li>
+                    <li><a href="Raingauge_Summary_Station.aspx">Rain Gauge Summary Station</a></li>
+                    <li><a href="Raingauge_Monitor_Map.aspx">Rain Gauge Monitoring Map</a></li>
+                    <li><a href="Raingauge_Month.aspx">Rain Gauge Summary Month</a></li>
+                    <li><a href="Raingauge_All_Lastest.aspx">Rain Gauge All Latest</a></li>
+                    <li><a href="Raingauge_Data.aspx">Rain Gauge Raw Data</a></li>
+                </ul>
+            </li>
+
+            <li ><a><i class="fas fa-bar-chart-o fa-lg"></i>&nbsp;&nbsp;Surface Data (MAWS)<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="MawsMonitor.aspx">Surface Data Overview</a></li>
+                    <li><a href="Maws_Surface_Raw_Data.aspx">Surface Raw Data</a></li>
+                    <li><a href="Maws_Wind_Raw_Data.aspx">Surface Wind Raw Data</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+            
+            
+            
+        </ul>
+    </div>
+
+
+</div>
+
+                        
+                    </div>
+                </div>
+
+                <!-- top navigation -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle" onclick="loadMenu()"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                        <img id="ctl00_img_User" src="FILES/USER/2_S__4661252.jpg" style="border-width:0px;" />
+                                        <span id="ctl00_lb_UserName">User User</span>
+
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        
+                                        <li><a href="ChangePassword.aspx">Change Password <i class="fa fa-key pull-right"></i></a></li>
+                                        
+
+                                        <li><a href="Logoff.aspx"><i class="fa fa-sign-out-alt pull-right"></i>Log Out</a></li>
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /top navigation -->
+
+
+                <div id="login-signup-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <!-- signup modal content -->
+                        <div class="modal-content" id="signup-modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">Change Password</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="Signin-Form" role="form" novalidate="">
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                            <input name="ctl00$oldpassword" type="password" id="ctl00_oldpassword" class="form-control input-lg" autocomplete="off" placeholder="Current Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                            <input name="ctl00$passwd" type="password" id="ctl00_passwd" class="form-control input-lg" autocomplete="off" placeholder="New Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+
+                                            <input name="ctl00$cpasswd" type="password" id="ctl00_cpasswd" class="form-control input-lg" autocomplete="off" placeholder="Confirm New Password" />
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="ctl00$btSubmit" value="Change Password" onclick="if ( ! changePassword()) return false;" id="ctl00_btSubmit" class="btn btn-success btn-block btn-lg" />
+                                    <script type="text/javascript">
+                                        function changePassword() {
+                                            return confirm("Are you sure you want to change password?");
+                                        }
+                                        function changeNoComplete() {
+                                            return confirm("Change Password Error!!!");
+                                        }
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <div id="profile-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <!-- signup modal content -->
+                        <div class="modal-content" id="profile-modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">Change Profile Picture</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="profile-Form" role="form" novalidate="">
+                                    <div id="ctl00_divM1" class="col-md-12">
+                                        <div class="col-md-12" align="center">
+
+                                            <span id="ctl00_imgfl1"><img src='FILES/User/2_S__4661252.jpg' width='150px'></span>
+                                            <input type="hidden" name="ctl00$hdfl1" id="ctl00_hdfl1" />
+                                            <br />
+                                            <a onclick="return confirm(&#39;Delete Picture 1?&#39;);" id="ctl00_btBin1" data-placement="top" data-toggle="tooltip" data-original-title="Delete Picture" href="javascript:__doPostBack(&#39;ctl00$btBin1&#39;,&#39;&#39;)">
+                                                    <i class="btn btn-sm fa fa-eraser fa-lg"></i></a>
+
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+                                        <input type="submit" name="ctl00$btProfilePic" value="Change Profile Picture" onclick="if ( ! changePassword()) return false;" id="ctl00_btProfilePic" class="btn btn-success btn-block btn-lg" />
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <!-- page content -->
+                <div class="right_col" role="main">
+
+                    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'aspnetForm', ['tctl00$UpdatePanel1',''], [], ['ctl00$ContentPlaceHolder1$dl_RAINGAUGE','','ctl00$ContentPlaceHolder1$btSearch','','ctl00$ContentPlaceHolder1$linkExportTxt','','ctl00$btBin1',''], 90, 'ctl00');
+//]]>
+</script>
+
+
+                    <div id="ctl00_UpdatePanel1">
+	
+                            
+    <div class="">
+        <div class="page-title">
+
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Rain Gauge Raw Data</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <div class="col-md-4">
+                                <span class="title">
+                                    <h4>Rain Gauge Station</h4>
+                                </span>
+                                <div class='input-group date'>
+                                    <select name="ctl00$ContentPlaceHolder1$dl_RAINGAUGE" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$dl_RAINGAUGE\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_ContentPlaceHolder1_dl_RAINGAUGE" class="form-control">
+		<option value="">--= Show all </option>
+		<option selected="selected" value="G1001">G1001 - King Mongkut is Institute of Technology Ladkrabang Prince of Chumphon Campus </option>
+		<option value="G1002">G1002 - Ban Bang Waen Sub-District Health Promoting Hospital </option>
+		<option value="G1003">G1003 - Salui Sub-District Health Promoting Hospital </option>
+		<option value="G1004">G1004 - Ban Tham Charoen Sub-District Health Promoting Hospital</option>
+		<option value="G1005">G1005 - Ban Panwan Sub-District Health Promoting Hospital</option>
+		<option value="G1006">G1006 - Tha Sae Sub-District Health Promoting Hospital</option>
+		<option value="G1007">G1007 - Ban Wang Mai Sub-District Health Promoting Hospital </option>
+		<option value="G1008">G1008 - Bang Mak Sub-District Health Promoting Hospital</option>
+		<option value="G1009">G1009 - Ban Nam Cha Sub-District Health Promoting Hospital </option>
+		<option value="G1010">G1010 - Chong Mai Kaeo Sub-District Health Promoting Hospital</option>
+		<option value="G1011">G1011 - Khao Khai Sub-District Health Promoting Hospital </option>
+		<option value="G1012">G1012 -  Na Phaya Health Promoting Hospital </option>
+		<option value="G1013">G1013 - Ban Nai Hom Sub-District Health Promoting Hospital </option>
+		<option value="G1014">G1014 - Ban Khlong Song Sub-District Health Promoting Hospital</option>
+		<option value="G1015">G1015 - Lum Laieng Health Promoting Hospital </option>
+		<option value="G1016">G1016 - Sai Daeng Health Promoting Hospital </option>
+		<option value="G1017">G1017 - Bangrin Town Municipality</option>
+		<option value="G1018">G1018 - Ratchakrut Sub-District Health Promoting Hospital </option>
+		<option value="G1019">G1019 - Ban Khian Ngam Sub-District Health Promoting Hospital </option>
+		<option value="G1020">G1020 - Phong Prasat Health Promoting Hospital</option>
+		<option value="G1021">G1021 - Ban Huai Kai Tor Health Promoting Hospital </option>
+		<option value="G1022">G1022 - Chang Khwa Sub-District Health Promoting Hospital </option>
+		<option value="G1023">G1023 - Khlong Noi  Sub-District Health Promoting Hospital </option>
+		<option value="G1024">G1024 - Ban Yang Phrong Sub-District Health Promoting Hospital </option>
+		<option value="G1025">G1025 - Pa We Sub-District Health Promoting Hospital </option>
+		<option value="G1026">G1026 - Khlong Pha Sub-District Health Promoting Hospital </option>
+		<option value="G1027">G1027 - Takuk Nuea Sub-District Health Promoting Hospital </option>
+		<option value="G1028">G1028 - Tham Singkhon Sub-District Health Promoting Hospital </option>
+		<option value="G1029">G1029 - Ban Bang Charoen Sub-District Health Promoting Hospital </option>
+		<option value="G1030">G1030 - Ban Sai Thong Sub-District Health Promoting Hospital </option>
+		<option value="G1031">G1031 - Thong Mongkon Sub-District Health Promoting Hospital </option>
+		<option value="G1032">G1032 - Bang Saphan District Agricultural Extension Office</option>
+		<option value="G1033">G1033 - Ban Khlong Loi Sub-District Health Promoting Hospital </option>
+		<option value="G1034">G1034 - Ban Tham Khiriwong Sub-District Health Promoting Hospital </option>
+		<option value="G1035">G1035 - Ban Nong Hoi Sub-District Health Promoting Hospital </option>
+		<option value="G1036">G1036 - Khao Lan Sub-District Health Promoting Hospital </option>
+		<option value="G1037">G1037 - Huai Yang Sub-District Health Promoting Hospital </option>
+		<option value="G1038">G1038 - Khlong Wan Sub-District Health Promoting Hospital </option>
+		<option value="G1039">G1039 - Ban Dan Singkhon Sub-District Health Promoting Hospital </option>
+		<option value="G1040">G1040 - Nikhom Sang Ton Eng Ko 12 Sub-District Health Promoting Hospital </option>
+		<option value="G1041">G1041 - Ban Nong Pulok Sub-District Health Promoting Hospital </option>
+		<option value="G1042">G1042 - Ban Thung Ko Sub-District Health Promoting Hospital </option>
+		<option value="G1043">G1043 - Phrakhru Niyuttham Sunthon Sub-District Health Promoting Hospital </option>
+		<option value="G1044">G1044 - Ban Ruam Thai Sub-District Health Promoting Hospital</option>
+		<option value="G1045">G1045 -  Ban Nong Masang Health Promoting Hospital </option>
+		<option value="G1046">G1046 - Ban Nong Kae Sub-District Health Promoting Hospital</option>
+		<option value="G1047">G1047 - Ban Nong Ta Muang Sub-District Health Promoting Hospital </option>
+		<option value="G1048">G1048 - Ban Khao Chao Sub-District Health Promoting Hospital </option>
+		<option value="G1049">G1049 - Ban Phraek Takhro Sub-District Health Promoting Hospital </option>
+		<option value="G1050">G1050 - Pranburi Operation and Maintenance Project </option>
+		<option value="G1099">G1099 - Test Stationa</option>
+
+	</select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="title">
+                                    <h4>Date</h4>
+                                </span>
+                                <div class='input-group date' id='myDatepicker'>
+                                    <input name="ctl00$ContentPlaceHolder1$tbDate" type="text" value="14/11/2025" id="ctl00_ContentPlaceHolder1_tbDate" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="title">
+                                    <h4>Time (UTC)</h4>
+                                </span>
+                                <div class='input-group date' id='myDatepicker3'>
+                                    <input name="ctl00$ContentPlaceHolder1$tbTime" type="text" value="23:59" id="ctl00_ContentPlaceHolder1_tbTime" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="title">
+                                    <h4>&nbsp;</h4>
+                                </span>
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btSearch" value="Search" id="ctl00_ContentPlaceHolder1_btSearch" class="btn btn-success" style="width:100%;" />
+                            </div>
+                            <div class="col-md-1">
+                                <span class="title">
+                                    <h4>&nbsp;</h4>
+                                </span>
+                                
+
+                            </div>
+                            <div class="col-md-1">
+                                <span class="title">
+                                    <h4>&nbsp;</h4>
+                                </span>
+                                <a id="ctl00_ContentPlaceHolder1_linkExportTxt" class="btn btn-warning" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$linkExportTxt&#39;,&#39;&#39;)">Export File</a>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="panel-body">
+                            <p style="text-align: right"><b>Max 1,000 Records</b></p>
+                            <div>
+		<table class="table table-bordered" cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_gvWOR" style="width:100%;border-collapse:collapse;">
+			<tr class="EmptyRowStyle">
+				<td colspan="12"> No Data</td>
+			</tr>
+		</table>
+	</div>
+                            Limit 1,000 Records
+                            <span id="ctl00_ContentPlaceHolder1_lb_Test"></span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- jQuery -->
+        <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+        <!-- bootstrap-daterangepicker -->
+        <script src="vendors/moment/min/moment.min.js"></script>
+
+        <!-- bootstrap-datetimepicker -->
+        <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+        <!-- Custom Theme Scripts -->
+        <script src="build/js/custom.min.js"></script>
+
+        <script>
+
+            function loadDate() {
+                $('#myDatepicker').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                });
+
+                $('#myDatepicker3').datetimepicker({
+                    format: 'HH:mm'
+                });
+            }
+
+            $('#myDatepicker').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+
+            $('#myDatepicker3').datetimepicker({
+                format: 'HH:mm'
+            });
+
+        </script>
+
+
+                        
+</div>
+
+                </div>
+                <!-- /page content -->
+
+                <!-- footer content -->
+                <footer>
+
+
+                    <div class="pull-right">Weather Data Storage System</div>
+                    <div class="clearfix"></div>
+
+                </footer>
+                <!-- /footer content -->
+            </div>
+
+        </div>
+
+        <!-- jQuery -->
+
+        
+        <!-- Bootstrap -->
+        <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="vendors/nprogress/nprogress.js"></script>
+        <!-- Chart.js -->
+        <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+        <!-- gauge.js -->
+        <script src="vendors/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="vendors/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="vendors/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="vendors/Flot/jquery.flot.js"></script>
+        <script src="vendors/Flot/jquery.flot.pie.js"></script>
+        <script src="vendors/Flot/jquery.flot.time.js"></script>
+        <script src="vendors/Flot/jquery.flot.stack.js"></script>
+        <script src="vendors/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="vendors/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="vendors/DateJS/build/date.js"></script>
+        <!-- JQVMap -->
+        <script src="vendors/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+
+        <!-- Custom Theme Scripts -->
+        <script src="build/js/custom.min.js"></script>
+
+    </body>
+</form>
+</html>

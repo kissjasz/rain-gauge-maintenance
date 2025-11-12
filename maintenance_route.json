@@ -1,0 +1,360 @@
+{
+  "metadata": {
+    "created_at": "2025-11-05T11:54:46.253738+00:00",
+    "total_stations": 25,
+    "purpose": "maintenance"
+  },
+  "waypoints": [
+    {
+      "station_code": "G1015",
+      "name": "Lum Laieng Health Promoting Hospital ",
+      "lat": 10.327637,
+      "lon": 98.774235,
+      "priority_score": 110,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.3V",
+        "⚠️ อุณหภูมิผิดปกติ 59.6°C"
+      ],
+      "battery_v": 12.0,
+      "solar_v": 0.3,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:47 UTC"
+    },
+    {
+      "station_code": "G1003",
+      "name": "Salui Sub-District Health Promoting Hospital ",
+      "lat": 10.872415,
+      "lon": 99.24979,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 1.5V"
+      ],
+      "battery_v": 12.3,
+      "solar_v": 1.5,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:50 UTC"
+    },
+    {
+      "station_code": "G1006",
+      "name": "Tha Sae Sub-District Health Promoting Hospital",
+      "lat": 10.663167,
+      "lon": 99.19347,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.1V"
+      ],
+      "battery_v": 12.6,
+      "solar_v": 0.1,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1007",
+      "name": "Ban Wang Mai Sub-District Health Promoting Hospital ",
+      "lat": 10.502423,
+      "lon": 99.026354,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.2V"
+      ],
+      "battery_v": 11.9,
+      "solar_v": 0.2,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:47 UTC"
+    },
+    {
+      "station_code": "G1008",
+      "name": "Bang Mak Sub-District Health Promoting Hospital",
+      "lat": 10.42585,
+      "lon": 99.183896,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.7V"
+      ],
+      "battery_v": 11.9,
+      "solar_v": 0.7,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:46 UTC"
+    },
+    {
+      "station_code": "G1010",
+      "name": "Chong Mai Kaeo Sub-District Health Promoting Hospital",
+      "lat": 10.137002,
+      "lon": 99.054315,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.3V"
+      ],
+      "battery_v": 12.2,
+      "solar_v": 0.3,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:47 UTC"
+    },
+    {
+      "station_code": "G1012",
+      "name": " Na Phaya Health Promoting Hospital ",
+      "lat": 9.89495,
+      "lon": 99.105081,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.7V"
+      ],
+      "battery_v": 13.6,
+      "solar_v": 0.7,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1016",
+      "name": "Sai Daeng Health Promoting Hospital ",
+      "lat": 10.136066,
+      "lon": 98.689444,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.9V"
+      ],
+      "battery_v": 12.5,
+      "solar_v": 0.9,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1017",
+      "name": "Bangrin Town Municipality",
+      "lat": 9.888354,
+      "lon": 98.627485,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.2V"
+      ],
+      "battery_v": 12.2,
+      "solar_v": 0.2,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:50 UTC"
+    },
+    {
+      "station_code": "G1018",
+      "name": "Ratchakrut Sub-District Health Promoting Hospital ",
+      "lat": 9.74716,
+      "lon": 98.596935,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.1V"
+      ],
+      "battery_v": 12.2,
+      "solar_v": 0.1,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:50 UTC"
+    },
+    {
+      "station_code": "G1019",
+      "name": "Ban Khian Ngam Sub-District Health Promoting Hospital ",
+      "lat": 9.536727,
+      "lon": 98.580808,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.5V"
+      ],
+      "battery_v": 12.2,
+      "solar_v": 0.5,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1025",
+      "name": "Pa We Sub-District Health Promoting Hospital ",
+      "lat": 9.425665,
+      "lon": 99.129125,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.1V"
+      ],
+      "battery_v": 11.8,
+      "solar_v": 0.1,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1027",
+      "name": "Takuk Nuea Sub-District Health Promoting Hospital ",
+      "lat": 9.206438,
+      "lon": 98.953157,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.5V"
+      ],
+      "battery_v": 12.4,
+      "solar_v": 0.5,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1029",
+      "name": "Ban Bang Charoen Sub-District Health Promoting Hospital ",
+      "lat": 11.010548,
+      "lon": 99.261134,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.1V"
+      ],
+      "battery_v": 12.2,
+      "solar_v": 0.1,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:49 UTC"
+    },
+    {
+      "station_code": "G1034",
+      "name": "Ban Tham Khiriwong Sub-District Health Promoting Hospital ",
+      "lat": 11.392272,
+      "lon": 99.577286,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 1.6V"
+      ],
+      "battery_v": 12.4,
+      "solar_v": 1.6,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:47 UTC"
+    },
+    {
+      "station_code": "G1035",
+      "name": "Ban Nong Hoi Sub-District Health Promoting Hospital ",
+      "lat": 11.440851,
+      "lon": 99.502286,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.1V"
+      ],
+      "battery_v": 11.8,
+      "solar_v": 0.1,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:49 UTC"
+    },
+    {
+      "station_code": "G1036",
+      "name": "Khao Lan Sub-District Health Promoting Hospital ",
+      "lat": 11.55657,
+      "lon": 99.554901,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 1.2V"
+      ],
+      "battery_v": 12.3,
+      "solar_v": 1.2,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:46 UTC"
+    },
+    {
+      "station_code": "G1045",
+      "name": " Ban Nong Masang Health Promoting Hospital ",
+      "lat": 12.071074,
+      "lon": 99.818575,
+      "priority_score": 80,
+      "issues": [
+        "🔴 โซล่าวิกฤต 0.2V"
+      ],
+      "battery_v": 12.5,
+      "solar_v": 0.2,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1004",
+      "name": "Ban Tham Charoen Sub-District Health Promoting Hospital",
+      "lat": 10.86492,
+      "lon": 99.114881,
+      "priority_score": 50,
+      "issues": [
+        "🟡 แบตต่ำ 10.0V"
+      ],
+      "battery_v": 10.0,
+      "solar_v": 10.1,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 09:05 UTC"
+    },
+    {
+      "station_code": "G1009",
+      "name": "Ban Nam Cha Sub-District Health Promoting Hospital ",
+      "lat": 10.309452,
+      "lon": 99.023025,
+      "priority_score": 50,
+      "issues": [
+        "🟡 แบตต่ำ 10.3V"
+      ],
+      "battery_v": 10.3,
+      "solar_v": 10.7,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 09:32 UTC"
+    },
+    {
+      "station_code": "G1014",
+      "name": "Ban Khlong Song Sub-District Health Promoting Hospital",
+      "lat": 9.74044,
+      "lon": 98.971332,
+      "priority_score": 50,
+      "issues": [
+        "🟡 แบตต่ำ 11.0V"
+      ],
+      "battery_v": 11.0,
+      "solar_v": 0.0,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:46 UTC"
+    },
+    {
+      "station_code": "G1032",
+      "name": "Bang Saphan District Agricultural Extension Office",
+      "lat": 11.241861,
+      "lon": 99.480922,
+      "priority_score": 50,
+      "issues": [
+        "🟡 แบตต่ำ 11.2V"
+      ],
+      "battery_v": 11.2,
+      "solar_v": 0.0,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:49 UTC"
+    },
+    {
+      "station_code": "G1033",
+      "name": "Ban Khlong Loi Sub-District Health Promoting Hospital ",
+      "lat": 11.293193,
+      "lon": 99.375845,
+      "priority_score": 50,
+      "issues": [
+        "🟡 แบตต่ำ 11.1V"
+      ],
+      "battery_v": 11.1,
+      "solar_v": 0.0,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:50 UTC"
+    },
+    {
+      "station_code": "G1040",
+      "name": "Nikhom Sang Ton Eng Ko 12 Sub-District Health Promoting Hospital ",
+      "lat": 11.888013,
+      "lon": 99.711927,
+      "priority_score": 50,
+      "issues": [
+        "🟡 แบตต่ำ 11.2V"
+      ],
+      "battery_v": 11.2,
+      "solar_v": 0.0,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:48 UTC"
+    },
+    {
+      "station_code": "G1046",
+      "name": "Ban Nong Kae Sub-District Health Promoting Hospital",
+      "lat": 12.21006,
+      "lon": 99.794235,
+      "priority_score": 50,
+      "issues": [
+        "🟡 แบตต่ำ 11.4V"
+      ],
+      "battery_v": 11.4,
+      "solar_v": 0.0,
+      "status": "ONLINE",
+      "last_update": "05/11/2025 11:46 UTC"
+    }
+  ]
+}

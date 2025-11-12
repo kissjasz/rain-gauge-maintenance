@@ -1,0 +1,1003 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+    <title>EEC</title>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="vendors/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="vendors/font-awesome/css/brands.css" rel="stylesheet" />
+    <link href="vendors/font-awesome/css/solid.css" rel="stylesheet" />
+
+
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet">
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" media="all" type="text/css" href="js/jquery-ui.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="js/jquery-ui-timepicker-addon.css" />
+
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-sliderAccess.js"></script>
+
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+            document.getElementById("forMD").style.display = 'block';
+        };
+
+        function loadMenu() {
+            function menu_toggle_click(element, cls) {
+                return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+            }
+            var el = document.getElementById('bodyMain');
+
+
+            //console.log(menu_toggle_click(el, 'nav-md'));
+            //console.log(menu_toggle_click(el, 'nav-sm'));
+
+            if (menu_toggle_click(el, 'nav-sm')) {
+                document.getElementById("forMD").style.display = 'block';
+                document.getElementById("forSM").style.display = 'none';
+
+            }
+            else if (menu_toggle_click(el, 'nav-md')) {
+                document.getElementById("forMD").style.display = 'none';
+                document.getElementById("forSM").style.display = 'block';
+
+            }
+
+        }
+
+        //window.onload = function () {
+        //    function hasClass(element, cls) {
+        //        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+        //    }
+
+        //    var el = document.getElementById('bodyMain');
+
+        //    alert(hasClass(el, 'nav-md'));
+        //    alert(hasClass(el, 'nav-sm'));
+
+        //};
+
+        function startTimeMaster() {
+            var today = new Date();
+            var h = today.getUTCHours();
+            var m = today.getUTCMinutes();
+            var s = today.getUTCSeconds();
+            m = checkTimeMaster(m);
+            s = checkTimeMaster(s);
+            document.getElementById('ctl00_lbTimeNowMaster').innerHTML = h + ":" + m+" UTC";
+            var t = setTimeout(startTimeMaster, 500);
+        }
+
+        function checkTimeMaster(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+
+        $(document).ready(function () {
+
+            startTimeMaster();
+
+
+        });
+
+    </script>
+
+
+
+    
+    
+
+</head>
+
+<form name="aspnetForm" method="post" action="./Raingauge_Monitor_Map.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTU1NjIyODkwNg9kFgJmD2QWAgIDD2QWEmYPDxYCHghJbWFnZVVybAU5fi9JY29uV2ViL00x4Lib4Liw4LiX4Li04LinIDAxX+C5kuC5kOC5keC5kuC5kuC5mF8xNTMuanBnZGQCAQ8PFgIeBFRleHQFCENodW1waG9uZGQCAg8PFgIfAQUGUGF0aGlvZGQCAw9kFgQCAQ8PFgIfAQUKMTIvMTEvMjAyNWRkAgMPDxYCHwEFCVdlZG5lc2RheWRkAgcPDxYCHwAFG0ZJTEVTL1VTRVIvMl9TX180NjYxMjUyLmpwZ2RkAggPDxYCHwEFCVVzZXIgVXNlcmRkAg0PFgIeB1Zpc2libGVnFgQCAQ8PFgIfAQU1PGltZyBzcmM9J0ZJTEVTL1VzZXIvMl9TX180NjYxMjUyLmpwZycgd2lkdGg9JzE1MHB4Jz5kZAIFDw8WAh8CZ2RkAg4PFgIfAmhkAhEPZBYCZg9kFgICAQ9kFgJmDxAPFgIeC18hRGF0YUJvdW5kZ2QQFTQNLS09IFNob3cgYWxsIFVHMTAwMSAtIEtpbmcgTW9uZ2t1dCBpcyBJbnN0aXR1dGUgb2YgVGVjaG5vbG9neSBMYWRrcmFiYW5nIFByaW5jZSBvZiBDaHVtcGhvbiBDYW1wdXMgPUcxMDAyIC0gQmFuIEJhbmcgV2FlbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA1RzEwMDMgLSBTYWx1aSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA/RzEwMDQgLSBCYW4gVGhhbSBDaGFyb2VuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsOUcxMDA1IC0gQmFuIFBhbndhbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDZHMTAwNiAtIFRoYSBTYWUgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWw8RzEwMDcgLSBCYW4gV2FuZyBNYWkgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgN0cxMDA4IC0gQmFuZyBNYWsgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWw7RzEwMDkgLSBCYW4gTmFtIENoYSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA9RzEwMTAgLSBDaG9uZyBNYWkgS2FlbyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDlHMTAxMSAtIEtoYW8gS2hhaSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCAsRzEwMTIgLSAgTmEgUGhheWEgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA7RzEwMTMgLSBCYW4gTmFpIEhvbSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA+RzEwMTQgLSBCYW4gS2hsb25nIFNvbmcgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwtRzEwMTUgLSBMdW0gTGFpZW5nIEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgLEcxMDE2IC0gU2FpIERhZW5nIEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgIUcxMDE3IC0gQmFuZ3JpbiBUb3duIE11bmljaXBhbGl0eTpHMTAxOCAtIFJhdGNoYWtydXQgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgPkcxMDE5IC0gQmFuIEtoaWFuIE5nYW0gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgLkcxMDIwIC0gUGhvbmcgUHJhc2F0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwzRzEwMjEgLSBCYW4gSHVhaSBLYWkgVG9yIEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgOkcxMDIyIC0gQ2hhbmcgS2h3YSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA7RzEwMjMgLSBLaGxvbmcgTm9pICBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA/RzEwMjQgLSBCYW4gWWFuZyBQaHJvbmcgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgNUcxMDI1IC0gUGEgV2UgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgOkcxMDI2IC0gS2hsb25nIFBoYSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMjcgLSBUYWt1ayBOdWVhIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTAyOCAtIFRoYW0gU2luZ2tob24gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgQEcxMDI5IC0gQmFuIEJhbmcgQ2hhcm9lbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA9RzEwMzAgLSBCYW4gU2FpIFRob25nIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTAzMSAtIFRob25nIE1vbmdrb24gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgOkcxMDMyIC0gQmFuZyBTYXBoYW4gRGlzdHJpY3QgQWdyaWN1bHR1cmFsIEV4dGVuc2lvbiBPZmZpY2U+RzEwMzMgLSBCYW4gS2hsb25nIExvaSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCBCRzEwMzQgLSBCYW4gVGhhbSBLaGlyaXdvbmcgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgPEcxMDM1IC0gQmFuIE5vbmcgSG9pIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDhHMTAzNiAtIEtoYW8gTGFuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDlHMTAzNyAtIEh1YWkgWWFuZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMzggLSBLaGxvbmcgV2FuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIEBHMTAzOSAtIEJhbiBEYW4gU2luZ2tob24gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgSUcxMDQwIC0gTmlraG9tIFNhbmcgVG9uIEVuZyBLbyAxMiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA+RzEwNDEgLSBCYW4gTm9uZyBQdWxvayBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA8RzEwNDIgLSBCYW4gVGh1bmcgS28gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgSkcxMDQzIC0gUGhyYWtocnUgTml5dXR0aGFtIFN1bnRob24gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgPEcxMDQ0IC0gQmFuIFJ1YW0gVGhhaSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDNHMTA0NSAtICBCYW4gTm9uZyBNYXNhbmcgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA7RzEwNDYgLSBCYW4gTm9uZyBLYWUgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWxBRzEwNDcgLSBCYW4gTm9uZyBUYSBNdWFuZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA9RzEwNDggLSBCYW4gS2hhbyBDaGFvIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIEFHMTA0OSAtIEJhbiBQaHJhZWsgVGFraHJvIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDNHMTA1MCAtIFByYW5idXJpIE9wZXJhdGlvbiBhbmQgTWFpbnRlbmFuY2UgUHJvamVjdCAVRzEwOTkgLSBUZXN0IFN0YXRpb25hFTQABUcxMDAxBUcxMDAyBUcxMDAzBUcxMDA0BUcxMDA1BUcxMDA2BUcxMDA3BUcxMDA4BUcxMDA5BUcxMDEwBUcxMDExBUcxMDEyBUcxMDEzBUcxMDE0BUcxMDE1BUcxMDE2BUcxMDE3BUcxMDE4BUcxMDE5BUcxMDIwBUcxMDIxBUcxMDIyBUcxMDIzBUcxMDI0BUcxMDI1BUcxMDI2BUcxMDI3BUcxMDI4BUcxMDI5BUcxMDMwBUcxMDMxBUcxMDMyBUcxMDMzBUcxMDM0BUcxMDM1BUcxMDM2BUcxMDM3BUcxMDM4BUcxMDM5BUcxMDQwBUcxMDQxBUcxMDQyBUcxMDQzBUcxMDQ0BUcxMDQ1BUcxMDQ2BUcxMDQ3BUcxMDQ4BUcxMDQ5BUcxMDUwBUcxMDk5FCsDNGdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2cWAWZkGAEFHGN0bDAwJENvbnRlbnRQbGFjZUhvbGRlcjEkZ3YPPCsADAEIAgFk+OMdrLOrMWLPeRNUdtmVnH4BFYYJnF8QF6+KR5YK0vA=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/EEC/WebResource.axd?d=fcwyLAlVAIlqKNvI4EQMb57-Svbl5v1wyjV3rX1cr14bWz2Hqho0-2sTKG8Qd-18OZjJINv_A6UyUZAme1XwAV8fvpIczRMFS13Zbz9di281&amp;t=636934885199995647" type="text/javascript"></script>
+
+
+<script src="/EEC/ScriptResource.axd?d=cSIszhM3Y7rGbYsFmJihE5W5R2b-ODXAhfXGQC2do_K-h6oTrtgvb6RUlZHvtjc7JnTxFwmnoYsXjJlw4XMdCjfxBQ00qe6LdK6IbD5jn5JRev4IYENBKH8IHnStcT_YCG1f6wtoAjdFPTpJSrDjq5pGcixc5l0UMmSh2540foXKFPBW5WgUo0ZHs76zDO0P0&amp;t=ffffffffa580202a" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="/EEC/ScriptResource.axd?d=u5WeCjfAH_tjbI83o6FIqFJMnl86ocXFshTwl8Dkq4GR_LbKZirsKjL21Rqj5utb3Cuf99jBy5DvRwjrH3UoB7yFamnr_HpZCOrTEv5qTc7iAtTo-urxQIInSjbmKsmylTnlgDSDAKig3tDlIAeJ520mXBEYPrwVgmvKCJibGhBh3H_5BEZGDy-st3BCz7lA0&amp;t=ffffffffa580202a" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="F2C75D4F" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAEZChAJRt3jWbPsH8NGnrx81DZfNwgonnUaZ//Y5yazcO8QxPp6rhsB5w3BVlJNGZvTgFzYgF9v5DbrsD9IcCQzF3JyFAFzWntjhIeHsr681dTsJbfUxMJz8C/MvzSPeli2CZZD/OA9qFqNnAbYh3cP0fAnC/+WSN2yMWsJQT2AeSYh0BQbwMeL/PwcIgREQgdvvThE5WkwT/IuMCdODCzHUiK+Rnkoc7J/kbSRUmgyd9+NqxZ8fucrhAfsM/jTgNFQ3YoQFkp4alLeUBmQ5Yd5i6Jv5OT8hNt3p9QhTaALOGtXnMx+lkToVGU4FsWW7afZmRYPhip/W2bFozMuvT+xdAIip1CoY7LvtcjuxytBqUMeX9P5YMX/+qbv73YBa+ncQmuLGJF9mjAo3rws5qHcMwnkOvriPBu4FhxdyT6mYLJeFKkUc7gXpgs8MGw2Xd9isAO8AXN35Cd2fEGL+k6IsPdTEm7XOfBZnfK/b2jVFTrqscUO3O6FpdJVOgt3OfSLfPjF1liYog9OwBlPXIq64rmJSa0YSrAPAyFJuGg8pHgo94cZXaJFBcNIktsh6bTX09kZ/YQPE2iDBQf8zvdUeK5qS8itROHjIh8quns7K9h/1WkgCNqHoci00kGQVCcuip4z9BPQU6Jy8gsAUX3wrVYbqo7p5TYAxPVaiMvlYrmnYactwlaBPC2/+PUE4PA4JkVTXPLBtZfUaRsve1UY1sY/JX1SgNK9taRdo2sXM/m1qjeFGy8w9tyojlCp+4XFeMERTajEAN57L0mWZKJV2Y579+cleetbYUehYWQ37chkaBbuTcS/PZfZSLfrQmk70Zx8Q7WwxYPXgUaz6E58kh3tq2hrlIK+tJU6KUQH3ob9s5vGt9AplbfegkPq/cp/M18G0YCeB1Qx7c11wD4LkjTZvITEK5kEeJqrx0emI+EQDESjK3ZyV5l2uiyZdtRI19uHf8+cq041L4+SPBcjKCr4itPvQXN6Vp+IWtdUtDSEXoXrzlIyR6NXGEtIWXrVHc5x9qvhxDolWs9QYRRYEp5cAudoN2H7EfDNY/9I8W90V9axsQ2SfwbaaAxo7mPsnk0NNcySg/qIRtfR1+OiGDJTyQ9vj1YGv4jZs/mC1FpBQBvQoHwog1dm/I8/B9h/Vj8HakDlJaXZCOnUU0wkuiUsNQ9NvcVwhEQX2lQt4ATBSnhdQ6PLGaa/Wvl9yq4jYFpR9alxfeFcundsRlQK2sMPbY8oeySlhAQePzywLeckE3cWehDMkF8OeyiCluFBJiv33meXCUBw6iIez2Y9TWSZBb9REayVS26KJ+LG+3poxwBmj2DDa4J4bXqGHFlzYx8/JHgokiLQAOr+MgWI/zB1htip3CL25e1CSOhNIo577hz3iSF6w3CyqfiEeCwmf+VUGOPJO8G15Gtkpj4DlxflhxYemmd3y2CHjI3HiiaRDVeabHxpAX1jE988crkWWVhBOhk7gphM6xUQI3ZlURXeqYlQr9pdVo+q9TxLizufhDuucIGbaSidVlXioItQ=" />
+</div>
+    <body class="nav-md" id="bodyMain">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="Default.aspx" class="site_title"><i class="fa fa-dice-d6"></i>
+                                
+                                <img src="Logo/logo2.png" style='height: 50px' />
+                            </a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <!-- menu profile quick info -->
+                        <div class="profile clearfix">
+                            <div class="profile_pic">
+                                
+                                <img id="ctl00_IMG_ICON_SHOW" class="img-circle profile_img" src="IconWeb/M1%E0%B8%9B%E0%B8%B0%E0%B8%97%E0%B8%B4%E0%B8%A7%2001_%E0%B9%92%E0%B9%90%E0%B9%91%E0%B9%92%E0%B9%92%E0%B9%98_153.jpg" style="border-width:0px;" />
+                            </div>
+                            <div class="profile_info">
+                                
+                                <span>
+                                    <span id="ctl00_lbProvince">Chumphon</span>
+                                </span>
+                                <h2>
+                                    <span id="ctl00_lbStationSubName">Pathio</span>
+                                </h2>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div align="center" style="color: white">
+                            <span id="ctl00_lbDateNowMaster" style="font-weight:bold;">12/11/2025</span>
+                            <span id="ctl00_lbTimeNowMaster" style="font-weight:bold;">Wednesday</span>
+                        </div>
+
+                        <!-- /menu profile quick info -->
+
+                        <br />
+
+                        <!-- sidebar menu -->
+
+
+
+                        <!-- Menu  -->
+
+                        <input type="hidden" name="ctl00$WebControl3$hdRaingauge" id="ctl00_WebControl3_hdRaingauge" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdUPPERAIR" id="ctl00_WebControl3_hdUPPERAIR" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdRADAR" id="ctl00_WebControl3_hdRADAR" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdAIRCRAFT_TRACKING" id="ctl00_WebControl3_hdAIRCRAFT_TRACKING" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdRADIOSONDE" id="ctl00_WebControl3_hdRADIOSONDE" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdMAWS" id="ctl00_WebControl3_hdMAWS" value="style=&#39;display:block&#39;" />
+
+
+
+
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <h3>Information</h3>
+        <ul class="nav side-menu">
+            <li><a href="Default.aspx"><i class="fas fa-chart-pie fa-lg"></i>&nbsp;&nbsp;Station Overview </a></li>
+            
+            <li style='display:block'><a href="Airsystem.aspx"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Radiotheodolite Sounding</a></li>
+
+             <li style='display:block'>
+                <a id="forMD" style="display: none">
+                    <i class="fas fa-line-chart fa-lg"></i>
+                    &nbsp;Microwave Profiling<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Radiometer
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+
+                <a id="forSM" style="display: none">
+                    <i class="fas fa-line-chart fa-lg"></i>
+                    Microwave Profiling<br />
+                    Radiometer
+                   
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+
+
+                <ul class="nav child_menu">
+                    <li><a href="Sounding_System.aspx">Profiling Graph</a></li>
+                    <li><a href="Sounding_liquid.aspx">Integrated Liquid Graph</a></li>
+                    <li><a href="Sounding_Vapor.aspx">Integrated Vapor Graph</a></li>
+                </ul>
+            </li>
+
+             <li style='display:block'><a><i class="fas fa-satellite-dish fa-lg"></i>&nbsp;&nbsp;Radar<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Radar_All.aspx">Radar All Products</a></li>
+                    <li><a href="Radar.aspx">Radar Single Product</a></li>
+                    <li><a href="Radar_Accumulate.aspx">Radar Accumulation</a></li>
+                   
+                </ul>
+            </li>
+
+            <li style='display:block'><a><i class="fas fa-plane fa-lg"></i>&nbsp;&nbsp;Aircraft Tracking <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Aircraft_Tracking_Monitor.aspx">All Aircraft Monitoring</a></li>
+                    <li><a href="Aircraft_Tracking_Station.aspx">Single Aircraft Monitoring</a></li>
+                    <li><a href="Aircraft_Raw_Data_Lastest.aspx">Aircraft Telemetry Data</a></li>
+                </ul>
+            </li>
+            
+           
+
+           
+
+            
+
+            <li style='display:block'><a><i class="fas fa-cloud-rain fa-lg"></i>&nbsp;&nbsp;Rain Gauge<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Raingauge_Overview.aspx">Rain Gauge Overview</a></li>
+                    <li><a href="Raingauge_Summary_Station.aspx">Rain Gauge Summary Station</a></li>
+                    <li><a href="Raingauge_Monitor_Map.aspx">Rain Gauge Monitoring Map</a></li>
+                    <li><a href="Raingauge_Month.aspx">Rain Gauge Summary Month</a></li>
+                    <li><a href="Raingauge_All_Lastest.aspx">Rain Gauge All Latest</a></li>
+                    <li><a href="Raingauge_Data.aspx">Rain Gauge Raw Data</a></li>
+                </ul>
+            </li>
+
+            <li style='display:block'><a><i class="fas fa-bar-chart-o fa-lg"></i>&nbsp;&nbsp;Surface Data (MAWS)<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="MawsMonitor.aspx">Surface Data Overview</a></li>
+                    <li><a href="Maws_Surface_Raw_Data.aspx">Surface Raw Data</a></li>
+                    <li><a href="Maws_Wind_Raw_Data.aspx">Surface Wind Raw Data</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+            
+            
+            
+        </ul>
+    </div>
+
+
+</div>
+
+                        
+                    </div>
+                </div>
+
+                <!-- top navigation -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle" onclick="loadMenu()"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                        <img id="ctl00_img_User" src="FILES/USER/2_S__4661252.jpg" style="border-width:0px;" />
+                                        <span id="ctl00_lb_UserName">User User</span>
+
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        
+                                        <li><a href="ChangePassword.aspx">Change Password <i class="fa fa-key pull-right"></i></a></li>
+                                        
+
+                                        <li><a href="Logoff.aspx"><i class="fa fa-sign-out-alt pull-right"></i>Log Out</a></li>
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /top navigation -->
+
+
+                <div id="login-signup-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <!-- signup modal content -->
+                        <div class="modal-content" id="signup-modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">Change Password</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="Signin-Form" role="form" novalidate="">
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                            <input name="ctl00$oldpassword" type="password" id="ctl00_oldpassword" class="form-control input-lg" autocomplete="off" placeholder="Current Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                            <input name="ctl00$passwd" type="password" id="ctl00_passwd" class="form-control input-lg" autocomplete="off" placeholder="New Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+
+                                            <input name="ctl00$cpasswd" type="password" id="ctl00_cpasswd" class="form-control input-lg" autocomplete="off" placeholder="Confirm New Password" />
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="ctl00$btSubmit" value="Change Password" onclick="if ( ! changePassword()) return false;" id="ctl00_btSubmit" class="btn btn-success btn-block btn-lg" />
+                                    <script type="text/javascript">
+                                        function changePassword() {
+                                            return confirm("Are you sure you want to change password?");
+                                        }
+                                        function changeNoComplete() {
+                                            return confirm("Change Password Error!!!");
+                                        }
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <div id="profile-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <!-- signup modal content -->
+                        <div class="modal-content" id="profile-modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">Change Profile Picture</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="profile-Form" role="form" novalidate="">
+                                    <div id="ctl00_divM1" class="col-md-12">
+                                        <div class="col-md-12" align="center">
+
+                                            <span id="ctl00_imgfl1"><img src='FILES/User/2_S__4661252.jpg' width='150px'></span>
+                                            <input type="hidden" name="ctl00$hdfl1" id="ctl00_hdfl1" value="2_S__4661252.jpg" />
+                                            <br />
+                                            <a onclick="return confirm(&#39;Delete Picture 1?&#39;);" id="ctl00_btBin1" data-placement="top" data-toggle="tooltip" data-original-title="Delete Picture" href="javascript:__doPostBack(&#39;ctl00$btBin1&#39;,&#39;&#39;)">
+                                                    <i class="btn btn-sm fa fa-eraser fa-lg"></i></a>
+
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+                                        <input type="submit" name="ctl00$btProfilePic" value="Change Profile Picture" onclick="if ( ! changePassword()) return false;" id="ctl00_btProfilePic" class="btn btn-success btn-block btn-lg" />
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <!-- page content -->
+                <div class="right_col" role="main">
+
+                    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'aspnetForm', ['tctl00$UpdatePanel1',''], [], ['ctl00$ContentPlaceHolder1$dl_RAINGAUGE','','ctl00$ContentPlaceHolder1$btSearch','','ctl00$btBin1',''], 90, 'ctl00');
+//]]>
+</script>
+
+
+                    <div id="ctl00_UpdatePanel1">
+	
+                            
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/Gridview.css" rel="stylesheet" />
+    <link href="leaflet/leaflet.css" rel="stylesheet" />
+    <script src="leaflet/leaflet.js"></script>
+
+    <style>
+        #mapid {
+            width: 100px;
+            height: 800px;
+            min-height: 100%;
+            min-width: 100%;
+            display: block;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        #mapid-holder {
+            height: 100%;
+        }
+
+        .fill {
+            min-height: 100%;
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
+        }
+    </style>
+
+    <script>
+
+       
+
+        var group1 = L.featureGroup();
+        var group2 = L.featureGroup();
+        var group3 = L.featureGroup();
+
+        var overlayMaps = {
+            "Station": group2,
+            "Rain Gauge": group1,
+            "Circle": group3
+        };
+
+       
+
+
+        //Show Mark
+        function SetMap(Lat, Long, ic, txt, imgName, rgName, Detail, rgIcon, rainCode, Rad, llat, llong, rType, rName, rAddress, rPic,sta) {
+
+            //var rg_Icon = new LeafIcon({ iconUrl: 'images/MapIcon/' + rgIcon });
+
+             //var rg_icon2 = "raingauge_" + rType + ".png";
+            //var rg_Icon2 = new LeafIcon({ iconUrl: 'images/MapIcon/' + rg_icon2 });
+
+
+            var rg_Icon = new LeafIcon({
+                iconUrl: 'images/MapIcon/' + rgIcon,
+                iconSize: [35, 35],
+            });
+            var rg_Icon_7 = new LeafIcon({
+                iconUrl: 'images/MapIcon/' + rgIcon,
+                iconSize: [25, 25],
+            });
+            var rg_Icon_6 = new LeafIcon({
+                iconUrl: 'images/MapIcon/' + rgIcon,
+                iconSize: [15, 15],
+            });
+
+            var icons = L.marker([Lat, Long], { icon: rg_Icon })
+                .addTo(group1);
+            map.addLayer(icons);
+
+            var icons7 = L.marker([Lat, Long], { icon: rg_Icon_7 })
+                .addTo(group1);
+            map.removeLayer(icons7);
+
+            var icons6 = L.marker([Lat, Long], { icon: rg_Icon_6 })
+                .addTo(group1);
+            map.removeLayer(icons6);
+
+
+            map.on('zoomend', function () {
+
+                if ($('.leaflet-control-layers-selector')[3].checked == true) {
+                    var currentZoom = map.getZoom();
+                    if (currentZoom > 7) {
+                        map.addLayer(icons);
+                        map.removeLayer(icons7);
+                        map.removeLayer(icons6);
+                    }
+                    else if (currentZoom == 7) {
+                        map.addLayer(icons7);
+                        map.removeLayer(icons);
+                        map.removeLayer(icons6);
+                    }
+                    else {
+                        map.addLayer(icons6);
+                        map.removeLayer(icons);
+                        map.removeLayer(icons7);
+                    }
+                }
+                //$('.leaflet-control-layers-selector')[3].click();
+
+            });
+
+            map.on('layeradd', function () {
+                var currentZoom = map.getZoom();
+                if (currentZoom > 7) {
+                    //map.addLayer(icons);
+                    map.removeLayer(icons7);
+                    map.removeLayer(icons6);
+                }
+                else if (currentZoom == 7) {
+                    //map.addLayer(icons7);
+                    map.removeLayer(icons);
+                    map.removeLayer(icons6);
+                }
+                else {
+                    //map.addLayer(icons6);
+                    map.removeLayer(icons);
+                    map.removeLayer(icons7);
+                }
+            });
+           
+            var ppp = "";
+            if (imgName != "") ppp = "<br><div width='100%' align='center'><img src='" + imgName + "' width='150px' /></div>";
+            else ppp = "<br><div width='100%' align='center'><img src='images/No_Picture.png' width='150px' /></div>";
+
+            icons.bindPopup("<b><a href='Raingauge_Summary_Station.aspx?id=" + rainCode + "&d=12/11/2025&t=13:44'>" + rgName + "</a><b/> " + Detail + "<br /><b>Latitude<b/> : " + Lat + " <b>Longitude</b/> : " + Long + ppp).closePopup();
+
+            var rg_icon2 = "raingauge_" + rType + ".png";
+            var rg_Icon2 = new LeafIcon({ iconUrl: 'images/MapIcon/' + rg_icon2 });
+
+            var markerStation = L.marker([llat, llong], { icon: rg_Icon2 })
+                .bindPopup("<b>"
+                    + rName + "<b/><br><b> Location : </b>"
+                    + rAddress
+                    + rPic)
+                .addTo(group2);
+
+            map.addLayer(group1);
+
+            //var markers = [];
+            //var marker = L.marker([Lat, Long], { icon: rg_Icon })
+            //    .addTo(group1);
+            //map.addLayer(group1);
+            ////.addTo(map).bindPopup();
+
+            //var markerStation = L.marker([llat, llong], { icon: rg_Icon2 })
+            //    //.addTo(map)
+            //    .bindPopup("<b>" + rName + "<b/><br><b> Location : </b>"
+            //        + rAddress + "<br /><img src='"
+            //        + rPic + "' width='200px'/>")
+            //    .addTo(group2);
+            //map.addLayer(group2);;
+
+
+            //markers.push(marker);
+
+            //function markerFunction(id,status) {
+            //    for (var i in markers) {
+            //        var markerID = markers[i].options.title;
+            //        if (markerID == id) {
+            //            //map.setView(new L.LatLng(40.737, -73.923), 8);
+            //            markers[i].openPopup();
+            //        };
+            //    }
+            //}
+
+
+            //$(".ck").click(function () {
+            //    markerFunction($(this)[0].id);
+            //});
+
+            //$("[title|='sunglass']").click(function () {
+            //    markerFunction($(this)[0].id);
+            //});
+
+
+            //marker.bindPopup("<b><a href='Raingauge_Summary_Station.aspx?id=" + rainCode + "&d=12/11/2025&t=13:44'>" + rgName + "</a><b/> " + Detail + "<br /><b>Latitude<b/> : " + Lat + " <b>Longitude</b/> : " + Long + "<br><img src='" + imgName + "' width='150px'/>").closePopup();
+
+        }
+
+        
+
+        //Show Map
+        function setView(Lat, Long, llat, llong, Rad) {
+            map = L.map('mapid', {
+                minZoom: 6,
+                maxZoom: 18,
+                attributionControl: false
+
+            }).setView([Lat, Long], 8);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                //attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution: ''
+            }).addTo(map);
+
+            var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var satUrl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+            var osmLink = '<a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+            var satLink = '<a href="http://www.esri.com/">Esri</a>,  i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+
+            var osmAttrib = '&copy; ' + osmLink;
+            var satAttrib = '&copy; ' + satLink + ', i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
+
+            osmLink = '';
+            satLink = '';
+            osmAttrib = '';
+            satAttrib = '';
+
+            var osmMap = L.tileLayer(osmUrl, { attribution: osmAttrib });
+            var satMap = L.tileLayer(satUrl, { attribution: satAttrib });
+
+            var baseLayers = {
+                "Map": osmMap,
+                "Satellite": satMap
+            };
+
+            
+            var circle = L.circle([llat, llong], {
+                color: '#239B56',
+                fillColor: '#229954',
+                strokeWeight: 1,
+                fillOpacity: 0.1,
+                radius: Rad
+            }).addTo(group3);
+
+
+            L.control.layers(baseLayers, overlayMaps).addTo(map);
+            $('.leaflet-control-layers-selector')[0].click();
+            $('.leaflet-control-layers-selector')[4].click();
+
+            
+        }
+
+       
+
+    </script>
+
+
+    <div class="">
+        <div class="page-title">
+
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Rain Gauge Monitoring Accumulation Map</h2>
+                        <div style="text-align-last: right;">
+
+                            <a href="Raingauge_Monitor_Map_Status.aspx?d=12/11/2025&t=13:44&rcode=">
+                                <button type="button" class="btn btn-round btn-warning">Rain Gauge Status</button></a>
+                        </div>
+                        <ul class="nav navbar-right panel_toolbox">
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                        <div class="col-md-4">
+                            <span class="title">
+                                <h4>Rain Gauge Station</h4>
+                            </span>
+                            <div class='input-group date'>
+                                <select name="ctl00$ContentPlaceHolder1$dl_RAINGAUGE" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$dl_RAINGAUGE\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_ContentPlaceHolder1_dl_RAINGAUGE" class="form-control">
+		<option selected="selected" value="">--= Show all </option>
+		<option value="G1001">G1001 - King Mongkut is Institute of Technology Ladkrabang Prince of Chumphon Campus </option>
+		<option value="G1002">G1002 - Ban Bang Waen Sub-District Health Promoting Hospital </option>
+		<option value="G1003">G1003 - Salui Sub-District Health Promoting Hospital </option>
+		<option value="G1004">G1004 - Ban Tham Charoen Sub-District Health Promoting Hospital</option>
+		<option value="G1005">G1005 - Ban Panwan Sub-District Health Promoting Hospital</option>
+		<option value="G1006">G1006 - Tha Sae Sub-District Health Promoting Hospital</option>
+		<option value="G1007">G1007 - Ban Wang Mai Sub-District Health Promoting Hospital </option>
+		<option value="G1008">G1008 - Bang Mak Sub-District Health Promoting Hospital</option>
+		<option value="G1009">G1009 - Ban Nam Cha Sub-District Health Promoting Hospital </option>
+		<option value="G1010">G1010 - Chong Mai Kaeo Sub-District Health Promoting Hospital</option>
+		<option value="G1011">G1011 - Khao Khai Sub-District Health Promoting Hospital </option>
+		<option value="G1012">G1012 -  Na Phaya Health Promoting Hospital </option>
+		<option value="G1013">G1013 - Ban Nai Hom Sub-District Health Promoting Hospital </option>
+		<option value="G1014">G1014 - Ban Khlong Song Sub-District Health Promoting Hospital</option>
+		<option value="G1015">G1015 - Lum Laieng Health Promoting Hospital </option>
+		<option value="G1016">G1016 - Sai Daeng Health Promoting Hospital </option>
+		<option value="G1017">G1017 - Bangrin Town Municipality</option>
+		<option value="G1018">G1018 - Ratchakrut Sub-District Health Promoting Hospital </option>
+		<option value="G1019">G1019 - Ban Khian Ngam Sub-District Health Promoting Hospital </option>
+		<option value="G1020">G1020 - Phong Prasat Health Promoting Hospital</option>
+		<option value="G1021">G1021 - Ban Huai Kai Tor Health Promoting Hospital </option>
+		<option value="G1022">G1022 - Chang Khwa Sub-District Health Promoting Hospital </option>
+		<option value="G1023">G1023 - Khlong Noi  Sub-District Health Promoting Hospital </option>
+		<option value="G1024">G1024 - Ban Yang Phrong Sub-District Health Promoting Hospital </option>
+		<option value="G1025">G1025 - Pa We Sub-District Health Promoting Hospital </option>
+		<option value="G1026">G1026 - Khlong Pha Sub-District Health Promoting Hospital </option>
+		<option value="G1027">G1027 - Takuk Nuea Sub-District Health Promoting Hospital </option>
+		<option value="G1028">G1028 - Tham Singkhon Sub-District Health Promoting Hospital </option>
+		<option value="G1029">G1029 - Ban Bang Charoen Sub-District Health Promoting Hospital </option>
+		<option value="G1030">G1030 - Ban Sai Thong Sub-District Health Promoting Hospital </option>
+		<option value="G1031">G1031 - Thong Mongkon Sub-District Health Promoting Hospital </option>
+		<option value="G1032">G1032 - Bang Saphan District Agricultural Extension Office</option>
+		<option value="G1033">G1033 - Ban Khlong Loi Sub-District Health Promoting Hospital </option>
+		<option value="G1034">G1034 - Ban Tham Khiriwong Sub-District Health Promoting Hospital </option>
+		<option value="G1035">G1035 - Ban Nong Hoi Sub-District Health Promoting Hospital </option>
+		<option value="G1036">G1036 - Khao Lan Sub-District Health Promoting Hospital </option>
+		<option value="G1037">G1037 - Huai Yang Sub-District Health Promoting Hospital </option>
+		<option value="G1038">G1038 - Khlong Wan Sub-District Health Promoting Hospital </option>
+		<option value="G1039">G1039 - Ban Dan Singkhon Sub-District Health Promoting Hospital </option>
+		<option value="G1040">G1040 - Nikhom Sang Ton Eng Ko 12 Sub-District Health Promoting Hospital </option>
+		<option value="G1041">G1041 - Ban Nong Pulok Sub-District Health Promoting Hospital </option>
+		<option value="G1042">G1042 - Ban Thung Ko Sub-District Health Promoting Hospital </option>
+		<option value="G1043">G1043 - Phrakhru Niyuttham Sunthon Sub-District Health Promoting Hospital </option>
+		<option value="G1044">G1044 - Ban Ruam Thai Sub-District Health Promoting Hospital</option>
+		<option value="G1045">G1045 -  Ban Nong Masang Health Promoting Hospital </option>
+		<option value="G1046">G1046 - Ban Nong Kae Sub-District Health Promoting Hospital</option>
+		<option value="G1047">G1047 - Ban Nong Ta Muang Sub-District Health Promoting Hospital </option>
+		<option value="G1048">G1048 - Ban Khao Chao Sub-District Health Promoting Hospital </option>
+		<option value="G1049">G1049 - Ban Phraek Takhro Sub-District Health Promoting Hospital </option>
+		<option value="G1050">G1050 - Pranburi Operation and Maintenance Project </option>
+		<option value="G1099">G1099 - Test Stationa</option>
+
+	</select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <span class="title">
+                                <h4>Date</h4>
+                            </span>
+                            <div class='input-group date' id='myDatepicker'>
+                                <input name="ctl00$ContentPlaceHolder1$tbDate" type="text" value="12/11/2025" id="ctl00_ContentPlaceHolder1_tbDate" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="title">
+                                <h4>Time (UTC)</h4>
+                            </span>
+                            <div class='input-group date' id='myDatepicker3'>
+                                <input name="ctl00$ContentPlaceHolder1$tbTime" type="text" value="13:44" id="ctl00_ContentPlaceHolder1_tbTime" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <span class="title">
+                                <h4>&nbsp;</h4>
+                            </span>
+                            <input type="submit" name="ctl00$ContentPlaceHolder1$btSearch" value="Search" id="ctl00_ContentPlaceHolder1_btSearch" class="btn btn-success" style="width:100%;" />
+                            <input type="hidden" name="ctl00$ContentPlaceHolder1$hdDate" id="ctl00_ContentPlaceHolder1_hdDate" value="12/11/2568 13:44:00" />
+                            <span id="ctl00_ContentPlaceHolder1_lbTest"></span>
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="map-holder">
+                        <div class="container fill">
+                            <div id="mapid"></div>
+                        </div>
+                    </div>
+
+                    <script>
+                        var LeafIcon = L.Icon.extend({
+                            options: {
+                                iconSize: [35, 38],
+                            }
+                        });
+
+                        var radarIcon = new LeafIcon({ iconUrl: 'images/MapIcon/radar.png' }),
+                            rainIcon = new LeafIcon({ iconUrl: 'images/MapIcon/rainy_1.png' });
+
+
+                        L.icon = function (options) {
+                            return new L.Icon(options);
+                        };
+
+                        /* BackUp ไว้แสดงจุด
+                        //var marker = L.marker([13.720633, 100.498956]).addTo(map);
+                        //var marker = L.marker([13.720633, 100.598956]).addTo(map);
+                        //var marker = L.marker([13.720633, 100.698956]).addTo(map);
+                        */
+
+                        /* BackUp ไว้แสดงแผนที่
+                        //var map = L.map('mapid').setView([13.720633, 100.498956], 8);
+
+
+                        //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        //    attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        //}).addTo(map);
+                        */
+
+                    </script>
+
+
+
+
+                    
+                    <span id="ctl00_ContentPlaceHolder1_lb_Date"></span>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Rain Gauge Accumulate Status</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+
+                    <table class="" style="width: 100%" class="tile_info">
+
+                        <tr>
+                            <th>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <img id="ctl00_ContentPlaceHolder1_Image2" alt="img" src="images/MapIcon/raingauge_4.png" style="width:24px;border-width:0px;" />
+                                    <p style="font-size: 14px">No Rain (Online)</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <img id="ctl00_ContentPlaceHolder1_Image3" alt="img" src="images/MapIcon/raingauge_5.png" style="width:24px;border-width:0px;" />
+                                    <p style="font-size: 14px">Damp</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <img id="ctl00_ContentPlaceHolder1_Image4" alt="img" src="images/MapIcon/raingauge_6.png" style="width:24px;border-width:0px;" />
+                                    <p style="font-size: 14px">Moderate Rain</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <img id="ctl00_ContentPlaceHolder1_Image5" alt="img" src="images/MapIcon/raingauge_7.png" style="width:24px;border-width:0px;" />
+                                    <p style="font-size: 14px">Pour</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <img id="ctl00_ContentPlaceHolder1_Image1" alt="img" src="images/MapIcon/raingauge_8.png" style="width:24px;border-width:0px;" />
+                                    <p style="font-size: 14px">Downpour</p>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    <img id="ctl00_ContentPlaceHolder1_Image_Online" alt="img" src="images/MapIcon/raingauge_9.png" style="width:24px;border-width:0px;" />
+                                    <p style="font-size: 14px">No Data (Offline)</p>
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <!-- bootstrap-datetimepicker -->
+    <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+        $('#myDatepicker').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+
+        $('#myDatepicker3').datetimepicker({
+            format: 'HH:mm'
+        });
+
+    </script>
+
+
+
+                        
+</div>
+
+                </div>
+                <!-- /page content -->
+
+                <!-- footer content -->
+                <footer>
+
+
+                    <div class="pull-right">Weather Data Storage System</div>
+                    <div class="clearfix"></div>
+
+                </footer>
+                <!-- /footer content -->
+            </div>
+
+        </div>
+
+        <!-- jQuery -->
+
+        
+        <!-- Bootstrap -->
+        <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="vendors/nprogress/nprogress.js"></script>
+        <!-- Chart.js -->
+        <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+        <!-- gauge.js -->
+        <script src="vendors/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="vendors/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="vendors/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="vendors/Flot/jquery.flot.js"></script>
+        <script src="vendors/Flot/jquery.flot.pie.js"></script>
+        <script src="vendors/Flot/jquery.flot.time.js"></script>
+        <script src="vendors/Flot/jquery.flot.stack.js"></script>
+        <script src="vendors/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="vendors/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="vendors/DateJS/build/date.js"></script>
+        <!-- JQVMap -->
+        <script src="vendors/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+
+        <!-- Custom Theme Scripts -->
+        <script src="build/js/custom.min.js"></script>
+
+    </body>
+
+
+<script type="text/javascript">
+//<![CDATA[
+setView(10.732054,99.365284,10.732054,99.365284,250000);SetMap(10.732066, 99.365284, {title:1},'RainGauge','FILES/RAINGAUGE/1/1_1_M1 ปะทิว02_๒๐๑๒๒๘_199.jpeg','King Mongkut is Institute of Technology Ladkrabang Prince of Chumphon Campus ','<br/>Code : G1001<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 26.2 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.7 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1001','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.732066, 99.365284, {title:1},'RainGauge','FILES/RAINGAUGE/1/1_1_M1 ปะทิว02_๒๐๑๒๒๘_199.jpeg','King Mongkut is Institute of Technology Ladkrabang Prince of Chumphon Campus ','<br/>Code : G1001<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 26.2 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.7 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1001','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.897510, 99.430524, {title:2},'RainGauge','FILES/RAINGAUGE/2/1_2_Station 1002_๒๑๐๔๒๖_0.jpg','Ban Bang Waen Sub-District Health Promoting Hospital ','<br/>Code : G1002<br>Rain : No Rain<br>Date : 12/11/2025 13:38 UTC<br>Temperature : 25.7 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1002','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.872415, 99.249790, {title:3},'RainGauge','FILES/RAINGAUGE/3/1_3_Station 1003_๒๑๐๔๒๖_0.jpg','Salui Sub-District Health Promoting Hospital ','<br/>Code : G1003<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 25.5 °C<br>Relative Humidity : 93.9 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 1.5 V','raingauge_4.png','G1003','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.864920, 99.114881, {title:4},'RainGauge','FILES/RAINGAUGE/4/1_4_Statio 1004_๒๑๐๔๒๖_0.jpg','Ban Tham Charoen Sub-District Health Promoting Hospital','<br/>Code : G1004<br>Rain : Pour 38.0 mm<br>Date : 12/11/2025 09:04 UTC<br>Temperature : 29.2 °C<br>Relative Humidity : -3.4 %<br>Battery : 10.2 V<br>Solar Panels Voltages : 10.8 V','raingauge_7.png','G1004','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.777483, 99.004612, {title:5},'RainGauge','FILES/RAINGAUGE/5/1_5_Station1005_๒๑๐๔๒๖_0.jpg','Ban Panwan Sub-District Health Promoting Hospital','<br/>Code : G1005<br>Rain : No Rain<br>Date : 12/11/2025 13:12 UTC<br>Temperature : 25.9 °C<br>Relative Humidity : -3.9 %<br>Battery : 11.5 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1005','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.663167, 99.193470, {title:6},'RainGauge','FILES/RAINGAUGE/6/1_6_Station 1006_๒๑๐๔๒๖_0.jpg','Tha Sae Sub-District Health Promoting Hospital','<br/>Code : G1006<br>Rain : Damp 7.2 mm<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 25.8 °C<br>Relative Humidity : 97.5 %<br>Battery : 12.6 V<br>Solar Panels Voltages : 0.0 V','raingauge_5.png','G1006','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.502423, 99.026354, {title:7},'RainGauge','FILES/RAINGAUGE/7/1_7_Station1007_๒๑๐๔๒๖_0.jpg','Ban Wang Mai Sub-District Health Promoting Hospital ','<br/>Code : G1007<br>Rain : Damp 0.2 mm<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 26.7 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.1 V','raingauge_5.png','G1007','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.425850, 99.183896, {title:8},'RainGauge','FILES/RAINGAUGE/8/1_8_Station 1008_๒๑๐๔๒๖_0.jpg','Bang Mak Sub-District Health Promoting Hospital','<br/>Code : G1008<br>Rain : No Rain<br>Date : 12/11/2025 13:42 UTC<br>Temperature : 25.8 °C<br>Relative Humidity : 92.6 %<br>Battery : 12.3 V<br>Solar Panels Voltages : 0.8 V','raingauge_4.png','G1008','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.309452, 99.023025, {title:9},'RainGauge','FILES/RAINGAUGE/9/1_9_Station 1009_๒๑๐๔๒๖_0.jpg','Ban Nam Cha Sub-District Health Promoting Hospital ','<br/>Code : G1009<br>Rain : Damp 1.4 mm<br>Date : 12/11/2025 12:30 UTC<br>Temperature : 25.9 °C<br>Relative Humidity : -3.9 %<br>Battery : 10.3 V<br>Solar Panels Voltages : 0.0 V','raingauge_5.png','G1009','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.137002, 99.054315, {title:10},'RainGauge','FILES/RAINGAUGE/10/1_10_Station 1010_๒๑๐๔๒๖_0.jpg','Chong Mai Kaeo Sub-District Health Promoting Hospital','<br/>Code : G1010<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 27.4 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 0.2 V','raingauge_4.png','G1010','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.121726, 98.896399, {title:11},'RainGauge','FILES/RAINGAUGE/11/1_11_Station1011_๒๑๐๔๒๖_0.jpg','Khao Khai Sub-District Health Promoting Hospital ','<br/>Code : G1011<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 25.2 °C<br>Relative Humidity : 96.7 %<br>Battery : 12.5 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1011','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.894950, 99.105081, {title:12},'RainGauge','FILES/RAINGAUGE/12/1_12_169531.jpg',' Na Phaya Health Promoting Hospital ','<br/>Code : G1012<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 0.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 13.6 V<br>Solar Panels Voltages : 0.7 V','raingauge_4.png','G1012','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.86925, 98.92967, {title:13},'RainGauge','FILES/RAINGAUGE/13/1_13_26.jpg','Ban Nai Hom Sub-District Health Promoting Hospital ','<br/>Code : G1013<br>Rain : Damp 0.8 mm<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 27.2 °C<br>Relative Humidity : -3.9 %<br>Battery : 11.7 V<br>Solar Panels Voltages : 0.0 V','raingauge_5.png','G1013','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.740440, 98.971332, {title:14},'RainGauge','FILES/RAINGAUGE/14/1_14_Station1014_๒๑๐๔๒๖_0.jpg','Ban Khlong Song Sub-District Health Promoting Hospital','<br/>Code : G1014<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 25.4 °C<br>Relative Humidity : -3.9 %<br>Battery : 11.1 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1014','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.327637, 98.774235, {title:15},'RainGauge','FILES/RAINGAUGE/15/1_15_Station1015_๒๑๐๔๒๖_0.jpg','Lum Laieng Health Promoting Hospital ','<br/>Code : G1015<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 58.0 °C<br>Relative Humidity : 100.0 %<br>Battery : 11.8 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1015','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.136066, 98.689444, {title:16},'RainGauge','FILES/RAINGAUGE/16/1_16_172506.jpg','Sai Daeng Health Promoting Hospital ','<br/>Code : G1016<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 0.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.9 V','raingauge_4.png','G1016','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.888354, 98.627485, {title:17},'RainGauge','FILES/RAINGAUGE/17/1_17_777.jpg','Bangrin Town Municipality','<br/>Code : G1017<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 25.6 °C<br>Relative Humidity : 88.9 %<br>Battery : 12.2 V<br>Solar Panels Voltages : 0.2 V','raingauge_4.png','G1017','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.747160, 98.596935, {title:18},'RainGauge','FILES/RAINGAUGE/18/1_18_Station1018_๒๑๐๔๒๖_0.jpg','Ratchakrut Sub-District Health Promoting Hospital ','<br/>Code : G1018<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 0.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 12.5 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1018','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.536727, 98.580808, {title:19},'RainGauge','FILES/RAINGAUGE/19/1_19_Station1019_๒๑๐๔๒๖_0.jpg','Ban Khian Ngam Sub-District Health Promoting Hospital ','<br/>Code : G1019<br>Rain : Moderate Rain  10.8 mm<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 24.9 °C<br>Relative Humidity : -4.0 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 0.5 V','raingauge_6.png','G1019','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.150628, 99.481538, {title:20},'RainGauge','FILES/RAINGAUGE/20/1_20_444.jpg','Phong Prasat Health Promoting Hospital','<br/>Code : G1020<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 26.9 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.3 V<br>Solar Panels Voltages : 1.4 V','raingauge_4.png','G1020','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.379658, 99.474398, {title:21},'RainGauge','FILES/RAINGAUGE/21/1_21_555.jpg','Ban Huai Kai Tor Health Promoting Hospital ','<br/>Code : G1021<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 25.0 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1021','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.136295, 99.444607, {title:22},'RainGauge','FILES/RAINGAUGE/22/1_22_Station 1022_๒๑๐๔๒๖_0.jpg','Chang Khwa Sub-District Health Promoting Hospital ','<br/>Code : G1022<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 27.2 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.3 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1022','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.162698, 99.266996, {title:23},'RainGauge','FILES/RAINGAUGE/23/1_23_Station 1023_๒๑๐๔๒๖_0.jpg','Khlong Noi  Sub-District Health Promoting Hospital ','<br/>Code : G1023<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 0.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 11.4 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1023','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.420897, 98.925827, {title:24},'RainGauge','FILES/RAINGAUGE/24/1_24_Station1024_๒๑๐๔๒๖_0.jpg','Ban Yang Phrong Sub-District Health Promoting Hospital ','<br/>Code : G1024<br>Rain : No Rain<br>Date : 12/11/2025 13:42 UTC<br>Temperature : 25.5 °C<br>Relative Humidity : 94.6 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1024','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.425665, 99.129125, {title:25},'RainGauge','FILES/RAINGAUGE/25/1_25_170196.jpg','Pa We Sub-District Health Promoting Hospital ','<br/>Code : G1025<br>Rain : No Rain<br>Date : 12/11/2025 13:43 UTC<br>Temperature : 25.8 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1025','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.605583, 99.068380, {title:26},'RainGauge','FILES/RAINGAUGE/26/1_26_Station1026_๒๑๐๔๒๖_0.jpg','Khlong Pha Sub-District Health Promoting Hospital ','<br/>Code : G1026<br>Rain : ///<br>Date : ///<br>Temperature : /// °C<br>Relative Humidity : /// %<br>Battery : /// V<br>Solar Panels Voltages : /// V','raingauge_9.png','G1026','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.206438, 98.953157, {title:27},'RainGauge','FILES/RAINGAUGE/27/1_27_Station1027_๒๑๐๔๒๖_0.jpg','Takuk Nuea Sub-District Health Promoting Hospital ','<br/>Code : G1027<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 26.2 °C<br>Relative Humidity : 92.5 %<br>Battery : 12.3 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1027','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(9.015625, 99.048577, {title:28},'RainGauge','FILES/RAINGAUGE/28/1_28_Station 1028_๒๑๐๔๒๖_0.jpg','Tham Singkhon Sub-District Health Promoting Hospital ','<br/>Code : G1028<br>Rain : ///<br>Date : ///<br>Temperature : /// °C<br>Relative Humidity : /// %<br>Battery : /// V<br>Solar Panels Voltages : /// V','raingauge_9.png','G1028','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.010548, 99.261134, {title:29},'RainGauge','FILES/RAINGAUGE/29/1_29_Station 1029_๒๑๐๔๒๖_0.jpg','Ban Bang Charoen Sub-District Health Promoting Hospital ','<br/>Code : G1029<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 24.6 °C<br>Relative Humidity : -4.0 %<br>Battery : 12.5 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1029','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.033109, 99.415632, {title:30},'RainGauge','FILES/RAINGAUGE/30/1_30_Station 1030_๒๑๐๔๒๖_0.jpg','Ban Sai Thong Sub-District Health Promoting Hospital ','<br/>Code : G1030<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 26.7 °C<br>Relative Humidity : -3.9 %<br>Battery : 11.9 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1030','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.156369, 99.386224, {title:31},'RainGauge','FILES/RAINGAUGE/31/1_31_Station 1031_๒๑๐๔๒๖_0.jpg','Thong Mongkon Sub-District Health Promoting Hospital ','<br/>Code : G1031<br>Rain : No Rain<br>Date : 12/11/2025 13:43 UTC<br>Temperature : 26.2 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1031','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.241861, 99.480922, {title:32},'RainGauge','FILES/RAINGAUGE/32/1_32_Station 1032_๒๑๐๔๒๖_0.jpg','Bang Saphan District Agricultural Extension Office','<br/>Code : G1032<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 26.7 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1032','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.293193, 99.375845, {title:33},'RainGauge','FILES/RAINGAUGE/33/1_33_Station 1033_๒๑๐๔๒๖_0.jpg','Ban Khlong Loi Sub-District Health Promoting Hospital ','<br/>Code : G1033<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 25.9 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.0 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1033','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.392272, 99.577286, {title:34},'RainGauge','FILES/RAINGAUGE/34/1_34_Station 1034_๒๑๐๔๐๗_0.jpg','Ban Tham Khiriwong Sub-District Health Promoting Hospital ','<br/>Code : G1034<br>Rain : No Rain<br>Date : 12/11/2025 13:43 UTC<br>Temperature : 25.6 °C<br>Relative Humidity : 0.0 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 1.4 V','raingauge_4.png','G1034','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.440851, 99.502286, {title:35},'RainGauge','FILES/RAINGAUGE/35/1_35_Station 1035_๒๑๐๔๒๖_0.jpg','Ban Nong Hoi Sub-District Health Promoting Hospital ','<br/>Code : G1035<br>Rain : No Rain<br>Date : 12/11/2025 13:42 UTC<br>Temperature : 26.2 °C<br>Relative Humidity : 28.7 %<br>Battery : 12.2 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1035','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.556570, 99.554901, {title:36},'RainGauge','FILES/RAINGAUGE/36/1_36_Station 1036_๒๑๐๔๐๗_0.jpg','Khao Lan Sub-District Health Promoting Hospital ','<br/>Code : G1036<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 26.1 °C<br>Relative Humidity : 91.5 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 1.2 V','raingauge_4.png','G1036','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.607849, 99.664461, {title:37},'RainGauge','FILES/RAINGAUGE/37/1_37_Station1037_๒๑๐๔๐๗_0.jpg','Huai Yang Sub-District Health Promoting Hospital ','<br/>Code : G1037<br>Rain : No Rain<br>Date : 12/11/2025 13:42 UTC<br>Temperature : 22.4 °C<br>Relative Humidity : -3.9 %<br>Battery : 12.2 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1037','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.736572, 99.777494, {title:38},'RainGauge','FILES/RAINGAUGE/38/1_38_Station1038_๒๑๐๔๐๗_0.jpg','Khlong Wan Sub-District Health Promoting Hospital ','<br/>Code : G1038<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 27.7 °C<br>Relative Humidity : 72.2 %<br>Battery : 11.9 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1038','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.778434, 99.680244, {title:39},'RainGauge','FILES/RAINGAUGE/39/1_39_Station 1039_๒๑๐๔๐๗_0.jpg','Ban Dan Singkhon Sub-District Health Promoting Hospital ','<br/>Code : G1039<br>Rain : No Rain<br>Date : 12/11/2025 13:43 UTC<br>Temperature : 26.3 °C<br>Relative Humidity : 95.4 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1039','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.888013, 99.711927, {title:40},'RainGauge','FILES/RAINGAUGE/40/1_40_Station1040_๒๑๐๖๑๕_0.jpg','Nikhom Sang Ton Eng Ko 12 Sub-District Health Promoting Hospital ','<br/>Code : G1040<br>Rain : No Rain<br>Date : 12/11/2025 13:43 UTC<br>Temperature : 0.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1040','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.003709, 99.763704, {title:41},'RainGauge','FILES/RAINGAUGE/41/1_41_Station 1041_๒๑๐๔๐๗_0.jpg','Ban Nong Pulok Sub-District Health Promoting Hospital ','<br/>Code : G1041<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 0.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 12.2 V<br>Solar Panels Voltages : 0.1 V','raingauge_4.png','G1041','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(11.958634, 99.831502, {title:42},'RainGauge','FILES/RAINGAUGE/42/1_42_Station 1042_๒๑๐๔๐๗_0.jpg','Ban Thung Ko Sub-District Health Promoting Hospital ','<br/>Code : G1042<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 27.5 °C<br>Relative Humidity : 90.2 %<br>Battery : 12.4 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1042','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.090716, 99.950053, {title:43},'RainGauge','FILES/RAINGAUGE/43/1_43_Station 1043_๒๑๐๔๐๗_0.jpg','Phrakhru Niyuttham Sunthon Sub-District Health Promoting Hospital ','<br/>Code : G1043<br>Rain : No Rain<br>Date : 12/11/2025 13:41 UTC<br>Temperature : 28.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 12.5 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1043','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.102008, 99.662923, {title:44},'RainGauge','FILES/RAINGAUGE/44/1_44_Station 1044_๒๑๐๔๐๗_0.jpg','Ban Ruam Thai Sub-District Health Promoting Hospital','<br/>Code : G1044<br>Rain : No Rain<br>Date : 12/11/2025 13:43 UTC<br>Temperature : 30.7 °C<br>Relative Humidity : 92.9 %<br>Battery : 11.6 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1044','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.071074, 99.818575, {title:45},'RainGauge','FILES/RAINGAUGE/45/1_45_Station 1045_๒๑๐๔๐๗_0.jpg',' Ban Nong Masang Health Promoting Hospital ','<br/>Code : G1045<br>Rain : No Rain<br>Date : 12/11/2025 13:44 UTC<br>Temperature : 0.0 °C<br>Relative Humidity : 0.0 %<br>Battery : 12.5 V<br>Solar Panels Voltages : 0.2 V','raingauge_4.png','G1045','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.210060, 99.794235, {title:46},'RainGauge','FILES/RAINGAUGE/46/1_46_Station1046_๒๑๐๔๐๗_0.jpg','Ban Nong Kae Sub-District Health Promoting Hospital','<br/>Code : G1046<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 26.3 °C<br>Relative Humidity : -3.9 %<br>Battery : 11.7 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1046','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.355327, 99.842783, {title:47},'RainGauge','FILES/RAINGAUGE/47/1_47_Station 1047_๒๑๐๔๐๗_1.jpg','Ban Nong Ta Muang Sub-District Health Promoting Hospital ','<br/>Code : G1047<br>Rain : No Rain<br>Date : 12/11/2025 13:43 UTC<br>Temperature : 25.8 °C<br>Relative Humidity : 92.9 %<br>Battery : 12.9 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1047','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.364396, 99.693555, {title:48},'RainGauge','FILES/RAINGAUGE/48/1_48_Station1048_๒๑๐๔๐๗_0.jpg','Ban Khao Chao Sub-District Health Promoting Hospital ','<br/>Code : G1048<br>Rain : No Rain<br>Date : 12/11/2025 13:42 UTC<br>Temperature : 25.5 °C<br>Relative Humidity : 94.0 %<br>Battery : 12.0 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1048','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.359382, 99.601047, {title:49},'RainGauge','FILES/RAINGAUGE/49/1_49_Station1049_๒๑๐๔๐๗_0.jpg','Ban Phraek Takhro Sub-District Health Promoting Hospital ','<br/>Code : G1049<br>Rain : No Rain<br>Date : 12/11/2025 13:40 UTC<br>Temperature : 25.4 °C<br>Relative Humidity : 92.7 %<br>Battery : 12.1 V<br>Solar Panels Voltages : 0.0 V','raingauge_4.png','G1049','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(12.470281, 99.794406, {title:50},'RainGauge','FILES/RAINGAUGE/50/1_50_2021-06-15_15-56-21.jpg','Pranburi Operation and Maintenance Project ','<br/>Code : G1050<br>Rain : No Rain<br>Date : 12/11/2025 09:37 UTC<br>Temperature : 35.1 °C<br>Relative Humidity : 61.1 %<br>Battery : 11.9 V<br>Solar Panels Voltages : 12.8 V','raingauge_4.png','G1050','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0'),SetMap(10.964613, 99.433646, {title:51},'RainGauge','','Test Stationa','<br/>Code : G1099<br>Rain : ///<br>Date : ///<br>Temperature : /// °C<br>Relative Humidity : /// %<br>Battery : /// V<br>Solar Panels Voltages : /// V','raingauge_9.png','G1099','250000','10.732054','99.365284','2','Pathio Radar Mobile Station (Mobile1)','','','0');//]]>
+</script>
+</form>
+</html>

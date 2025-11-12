@@ -1,0 +1,1 @@
+python weather_monthly.py --user user --pass user@1234 --year 2025 --month 10  --filter G1001 --outdir weather_data --csv --excel --debug

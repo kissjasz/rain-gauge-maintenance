@@ -1,0 +1,2015 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+    <title>EEC</title>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="vendors/font-awesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="vendors/font-awesome/css/brands.css" rel="stylesheet" />
+    <link href="vendors/font-awesome/css/solid.css" rel="stylesheet" />
+
+
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link href="vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet">
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" media="all" type="text/css" href="js/jquery-ui.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="js/jquery-ui-timepicker-addon.css" />
+
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-sliderAccess.js"></script>
+
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+            document.getElementById("forMD").style.display = 'block';
+        };
+
+        function loadMenu() {
+            function menu_toggle_click(element, cls) {
+                return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+            }
+            var el = document.getElementById('bodyMain');
+
+
+            //console.log(menu_toggle_click(el, 'nav-md'));
+            //console.log(menu_toggle_click(el, 'nav-sm'));
+
+            if (menu_toggle_click(el, 'nav-sm')) {
+                document.getElementById("forMD").style.display = 'block';
+                document.getElementById("forSM").style.display = 'none';
+
+            }
+            else if (menu_toggle_click(el, 'nav-md')) {
+                document.getElementById("forMD").style.display = 'none';
+                document.getElementById("forSM").style.display = 'block';
+
+            }
+
+        }
+
+        //window.onload = function () {
+        //    function hasClass(element, cls) {
+        //        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+        //    }
+
+        //    var el = document.getElementById('bodyMain');
+
+        //    alert(hasClass(el, 'nav-md'));
+        //    alert(hasClass(el, 'nav-sm'));
+
+        //};
+
+        function startTimeMaster() {
+            var today = new Date();
+            var h = today.getUTCHours();
+            var m = today.getUTCMinutes();
+            var s = today.getUTCSeconds();
+            m = checkTimeMaster(m);
+            s = checkTimeMaster(s);
+            document.getElementById('ctl00_lbTimeNowMaster').innerHTML = h + ":" + m+" UTC";
+            var t = setTimeout(startTimeMaster, 500);
+        }
+
+        function checkTimeMaster(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+
+        $(document).ready(function () {
+
+            startTimeMaster();
+
+
+        });
+
+    </script>
+
+
+
+    
+    <link href="css/Gridview.css" rel="stylesheet" />
+
+</head>
+
+<form name="aspnetForm" method="post" action="./Raingauge_Data.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNjAzNjEwMjM3D2QWAmYPZBYCAgMPZBYSZg8PFgIeCEltYWdlVXJsBTl+L0ljb25XZWIvTTHguJvguLDguJfguLTguKcgMDFf4LmS4LmQ4LmR4LmS4LmS4LmYXzE1My5qcGdkZAIBDw8WAh4EVGV4dAUIQ2h1bXBob25kZAICDw8WAh8BBQZQYXRoaW9kZAIDD2QWBAIBDw8WAh8BBQowNi8xMS8yMDI1ZGQCAw8PFgIfAQUIVGh1cnNkYXlkZAIHDw8WAh8ABRtGSUxFUy9VU0VSLzJfU19fNDY2MTI1Mi5qcGdkZAIIDw8WAh8BBQlVc2VyIFVzZXJkZAINDxYCHgdWaXNpYmxlZxYEAgEPDxYCHwEFNTxpbWcgc3JjPSdGSUxFUy9Vc2VyLzJfU19fNDY2MTI1Mi5qcGcnIHdpZHRoPScxNTBweCc+ZGQCBQ8PFgIfAmdkZAIODxYCHwJoZAIRD2QWAmYPZBYCAgEPZBYEAgEPEA8WAh4LXyFEYXRhQm91bmRnZBAVNA0tLT0gU2hvdyBhbGwgVUcxMDAxIC0gS2luZyBNb25na3V0IGlzIEluc3RpdHV0ZSBvZiBUZWNobm9sb2d5IExhZGtyYWJhbmcgUHJpbmNlIG9mIENodW1waG9uIENhbXB1cyA9RzEwMDIgLSBCYW4gQmFuZyBXYWVuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDVHMTAwMyAtIFNhbHVpIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID9HMTAwNCAtIEJhbiBUaGFtIENoYXJvZW4gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWw5RzEwMDUgLSBCYW4gUGFud2FuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsNkcxMDA2IC0gVGhhIFNhZSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDxHMTAwNyAtIEJhbiBXYW5nIE1haSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA3RzEwMDggLSBCYW5nIE1hayBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDtHMTAwOSAtIEJhbiBOYW0gQ2hhIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTAxMCAtIENob25nIE1haSBLYWVvIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsOUcxMDExIC0gS2hhbyBLaGFpIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsICxHMTAxMiAtICBOYSBQaGF5YSBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDtHMTAxMyAtIEJhbiBOYWkgSG9tIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID5HMTAxNCAtIEJhbiBLaGxvbmcgU29uZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbC1HMTAxNSAtIEx1bSBMYWllbmcgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCAsRzEwMTYgLSBTYWkgRGFlbmcgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCAhRzEwMTcgLSBCYW5ncmluIFRvd24gTXVuaWNpcGFsaXR5OkcxMDE4IC0gUmF0Y2hha3J1dCBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA+RzEwMTkgLSBCYW4gS2hpYW4gTmdhbSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCAuRzEwMjAgLSBQaG9uZyBQcmFzYXQgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbDNHMTAyMSAtIEJhbiBIdWFpIEthaSBUb3IgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMjIgLSBDaGFuZyBLaHdhIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDtHMTAyMyAtIEtobG9uZyBOb2kgIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID9HMTAyNCAtIEJhbiBZYW5nIFBocm9uZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA1RzEwMjUgLSBQYSBXZSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMjYgLSBLaGxvbmcgUGhhIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDpHMTAyNyAtIFRha3VrIE51ZWEgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgPUcxMDI4IC0gVGhhbSBTaW5na2hvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCBARzEwMjkgLSBCYW4gQmFuZyBDaGFyb2VuIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTAzMCAtIEJhbiBTYWkgVGhvbmcgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgPUcxMDMxIC0gVGhvbmcgTW9uZ2tvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA6RzEwMzIgLSBCYW5nIFNhcGhhbiBEaXN0cmljdCBBZ3JpY3VsdHVyYWwgRXh0ZW5zaW9uIE9mZmljZT5HMTAzMyAtIEJhbiBLaGxvbmcgTG9pIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIEJHMTAzNCAtIEJhbiBUaGFtIEtoaXJpd29uZyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA8RzEwMzUgLSBCYW4gTm9uZyBIb2kgU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgOEcxMDM2IC0gS2hhbyBMYW4gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgOUcxMDM3IC0gSHVhaSBZYW5nIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDpHMTAzOCAtIEtobG9uZyBXYW4gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgQEcxMDM5IC0gQmFuIERhbiBTaW5na2hvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCBJRzEwNDAgLSBOaWtob20gU2FuZyBUb24gRW5nIEtvIDEyIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID5HMTA0MSAtIEJhbiBOb25nIFB1bG9rIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDxHMTA0MiAtIEJhbiBUaHVuZyBLbyBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCBKRzEwNDMgLSBQaHJha2hydSBOaXl1dHRoYW0gU3VudGhvbiBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbCA8RzEwNDQgLSBCYW4gUnVhbSBUaGFpIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsM0cxMDQ1IC0gIEJhbiBOb25nIE1hc2FuZyBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsIDtHMTA0NiAtIEJhbiBOb25nIEthZSBTdWItRGlzdHJpY3QgSGVhbHRoIFByb21vdGluZyBIb3NwaXRhbEFHMTA0NyAtIEJhbiBOb25nIFRhIE11YW5nIFN1Yi1EaXN0cmljdCBIZWFsdGggUHJvbW90aW5nIEhvc3BpdGFsID1HMTA0OCAtIEJhbiBLaGFvIENoYW8gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgQUcxMDQ5IC0gQmFuIFBocmFlayBUYWtocm8gU3ViLURpc3RyaWN0IEhlYWx0aCBQcm9tb3RpbmcgSG9zcGl0YWwgM0cxMDUwIC0gUHJhbmJ1cmkgT3BlcmF0aW9uIGFuZCBNYWludGVuYW5jZSBQcm9qZWN0IBVHMTA5OSAtIFRlc3QgU3RhdGlvbmEVNAAFRzEwMDEFRzEwMDIFRzEwMDMFRzEwMDQFRzEwMDUFRzEwMDYFRzEwMDcFRzEwMDgFRzEwMDkFRzEwMTAFRzEwMTEFRzEwMTIFRzEwMTMFRzEwMTQFRzEwMTUFRzEwMTYFRzEwMTcFRzEwMTgFRzEwMTkFRzEwMjAFRzEwMjEFRzEwMjIFRzEwMjMFRzEwMjQFRzEwMjUFRzEwMjYFRzEwMjcFRzEwMjgFRzEwMjkFRzEwMzAFRzEw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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/EEC/WebResource.axd?d=fcwyLAlVAIlqKNvI4EQMb57-Svbl5v1wyjV3rX1cr14bWz2Hqho0-2sTKG8Qd-18OZjJINv_A6UyUZAme1XwAV8fvpIczRMFS13Zbz9di281&amp;t=636934885199995647" type="text/javascript"></script>
+
+
+<script src="/EEC/ScriptResource.axd?d=cSIszhM3Y7rGbYsFmJihE5W5R2b-ODXAhfXGQC2do_K-h6oTrtgvb6RUlZHvtjc7JnTxFwmnoYsXjJlw4XMdCjfxBQ00qe6LdK6IbD5jn5JRev4IYENBKH8IHnStcT_YCG1f6wtoAjdFPTpJSrDjq5pGcixc5l0UMmSh2540foXKFPBW5WgUo0ZHs76zDO0P0&amp;t=ffffffffa580202a" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="/EEC/ScriptResource.axd?d=u5WeCjfAH_tjbI83o6FIqFJMnl86ocXFshTwl8Dkq4GR_LbKZirsKjL21Rqj5utb3Cuf99jBy5DvRwjrH3UoB7yFamnr_HpZCOrTEv5qTc7iAtTo-urxQIInSjbmKsmylTnlgDSDAKig3tDlIAeJ520mXBEYPrwVgmvKCJibGhBh3H_5BEZGDy-st3BCz7lA0&amp;t=ffffffffa580202a" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="B5BC4BE0" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAFc2ycICHZx4MKbKTg0Im2whDZfNwgonnUaZ//Y5yazcO8QxPp6rhsB5w3BVlJNGZvTgFzYgF9v5DbrsD9IcCQzF3JyFAFzWntjhIeHsr681dTsJbfUxMJz8C/MvzSPeli2CZZD/OA9qFqNnAbYh3cP0fAnC/+WSN2yMWsJQT2AeSYh0BQbwMeL/PwcIgREQgdvvThE5WkwT/IuMCdODCzHUiK+Rnkoc7J/kbSRUmgyd9+NqxZ8fucrhAfsM/jTgNFQ3YoQFkp4alLeUBmQ5Yd5i6Jv5OT8hNt3p9QhTaALOGtXnMx+lkToVGU4FsWW7afZmRYPhip/W2bFozMuvT+xdAIip1CoY7LvtcjuxytBqUMeX9P5YMX/+qbv73YBa+ncQmuLGJF9mjAo3rws5qHcMwnkOvriPBu4FhxdyT6mYLJeFKkUc7gXpgs8MGw2Xd9isAO8AXN35Cd2fEGL+k6IsPdTEm7XOfBZnfK/b2jVFTrqscUO3O6FpdJVOgt3OfSLfPjF1liYog9OwBlPXIq64rmJSa0YSrAPAyFJuGg8pHgo94cZXaJFBcNIktsh6bTX09kZ/YQPE2iDBQf8zvdUeK5qS8itROHjIh8quns7K9h/1WkgCNqHoci00kGQVCcuip4z9BPQU6Jy8gsAUX3wrVYbqo7p5TYAxPVaiMvlYrmnYactwlaBPC2/+PUE4PA4JkVTXPLBtZfUaRsve1UY1sY/JX1SgNK9taRdo2sXM/m1qjeFGy8w9tyojlCp+4XFeMERTajEAN57L0mWZKJV2Y579+cleetbYUehYWQ37chkaBbuTcS/PZfZSLfrQmk70Zx8Q7WwxYPXgUaz6E58kh3tq2hrlIK+tJU6KUQH3ob9s5vGt9AplbfegkPq/cp/M18G0YCeB1Qx7c11wD4LkjTZvITEK5kEeJqrx0emI+EQDESjK3ZyV5l2uiyZdtRI19uHf8+cq041L4+SPBcjKCr4itPvQXN6Vp+IWtdUtDSEXoXrzlIyR6NXGEtIWXrVHc5x9qvhxDolWs9QYRRYEp5cAudoN2H7EfDNY/9I8W90V9axsQ2SfwbaaAxo7mPsnk0NNcySg/qIRtfR1+OiGDJTyQ9vj1YGv4jZs/mC1FpBQBvQoHwog1dm/I8/B9h/Vj8HakDlJaXZCOnUU0wkuiUsNQ9NvcVwhEQX2lQt4ATBSnhdQ6PLGaa/Wvl9yq4jYFpR9alxfeFcundsRlQK2sMPbY8oeySlhAQePzywLeckE3cWehDMkF8OeyiCluFBJiv33meXCUBw6iIez2Y9TWSZBb9REayVS26KJ+LG+3poxwBmj2DDa4J4bXqGHFlzYx8/JHgokiLQAOr+MgWI/zB1htip3CL25e1CSOhNIo577hz3iSF6w3CyqfiEeCwmf+VUGOPJO8G15Gtkpj4DlxflhxYemmd3y2CHjI3HiiaRDVeabHxpAX1jE988crkV6mY1a0DEgIHBv106xWl8X3Ee9GsB+ewD/D+fc+IdAkeCbs9ojzWp/YDY+Ef1z0e/Ybva42LRprGWsHLwzu6RC4pEwXsspNUcucCGZfk2GVXq0qnP74LmtOlOccebHJCeFtRHIBWY2cjLerrRyApPtbSV71m/zVXrESH/QSSPPhcrwHF5QM9Vb6EyX7REUxbkicaT62WX3MpXLy/T6QTYUDqEvaWW+rSB0bBHLJRkYCMFEFg+deXRua3sqhAjZ0Butpl/DusoTWBvJa1k+OdSjiYNnFbXrDbt2PkQZdu/hM+dremzOj+hGeNLB9q+Q3Vheluzh935IVihv3b+J9gaEnfNc53Gue0fIgLLHzLyGBv+6NxqX74BNS9lE0qliQPCyr9mVQ5aCkKU2XYdzbV3f0w9Jm4/pW+N17rmULYmbLw==" />
+</div>
+    <body class="nav-md" id="bodyMain">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="Default.aspx" class="site_title"><i class="fa fa-dice-d6"></i>
+                                
+                                <img src="Logo/logo2.png" style='height: 50px' />
+                            </a>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <!-- menu profile quick info -->
+                        <div class="profile clearfix">
+                            <div class="profile_pic">
+                                
+                                <img id="ctl00_IMG_ICON_SHOW" class="img-circle profile_img" src="IconWeb/M1%E0%B8%9B%E0%B8%B0%E0%B8%97%E0%B8%B4%E0%B8%A7%2001_%E0%B9%92%E0%B9%90%E0%B9%91%E0%B9%92%E0%B9%92%E0%B9%98_153.jpg" style="border-width:0px;" />
+                            </div>
+                            <div class="profile_info">
+                                
+                                <span>
+                                    <span id="ctl00_lbProvince">Chumphon</span>
+                                </span>
+                                <h2>
+                                    <span id="ctl00_lbStationSubName">Pathio</span>
+                                </h2>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div align="center" style="color: white">
+                            <span id="ctl00_lbDateNowMaster" style="font-weight:bold;">06/11/2025</span>
+                            <span id="ctl00_lbTimeNowMaster" style="font-weight:bold;">Thursday</span>
+                        </div>
+
+                        <!-- /menu profile quick info -->
+
+                        <br />
+
+                        <!-- sidebar menu -->
+
+
+
+                        <!-- Menu  -->
+
+                        <input type="hidden" name="ctl00$WebControl3$hdRaingauge" id="ctl00_WebControl3_hdRaingauge" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdUPPERAIR" id="ctl00_WebControl3_hdUPPERAIR" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdRADAR" id="ctl00_WebControl3_hdRADAR" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdAIRCRAFT_TRACKING" id="ctl00_WebControl3_hdAIRCRAFT_TRACKING" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdRADIOSONDE" id="ctl00_WebControl3_hdRADIOSONDE" value="style=&#39;display:block&#39;" />
+<input type="hidden" name="ctl00$WebControl3$hdMAWS" id="ctl00_WebControl3_hdMAWS" value="style=&#39;display:block&#39;" />
+
+
+
+
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <h3>Information</h3>
+        <ul class="nav side-menu">
+            <li><a href="Default.aspx"><i class="fas fa-chart-pie fa-lg"></i>&nbsp;&nbsp;Station Overview </a></li>
+            
+            <li style='display:block'><a href="Airsystem.aspx"><i class="fas fa-cloud"></i>&nbsp;&nbsp;Radiotheodolite Sounding</a></li>
+
+             <li style='display:block'>
+                <a id="forMD" style="display: none">
+                    <i class="fas fa-line-chart fa-lg"></i>
+                    &nbsp;Microwave Profiling<br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Radiometer
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+
+                <a id="forSM" style="display: none">
+                    <i class="fas fa-line-chart fa-lg"></i>
+                    Microwave Profiling<br />
+                    Radiometer
+                   
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+
+
+                <ul class="nav child_menu">
+                    <li><a href="Sounding_System.aspx">Profiling Graph</a></li>
+                    <li><a href="Sounding_liquid.aspx">Integrated Liquid Graph</a></li>
+                    <li><a href="Sounding_Vapor.aspx">Integrated Vapor Graph</a></li>
+                </ul>
+            </li>
+
+             <li style='display:block'><a><i class="fas fa-satellite-dish fa-lg"></i>&nbsp;&nbsp;Radar<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Radar_All.aspx">Radar All Products</a></li>
+                    <li><a href="Radar.aspx">Radar Single Product</a></li>
+                    <li><a href="Radar_Accumulate.aspx">Radar Accumulation</a></li>
+                   
+                </ul>
+            </li>
+
+            <li style='display:block'><a><i class="fas fa-plane fa-lg"></i>&nbsp;&nbsp;Aircraft Tracking <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Aircraft_Tracking_Monitor.aspx">All Aircraft Monitoring</a></li>
+                    <li><a href="Aircraft_Tracking_Station.aspx">Single Aircraft Monitoring</a></li>
+                    <li><a href="Aircraft_Raw_Data_Lastest.aspx">Aircraft Telemetry Data</a></li>
+                </ul>
+            </li>
+            
+           
+
+           
+
+            
+
+            <li style='display:block'><a><i class="fas fa-cloud-rain fa-lg"></i>&nbsp;&nbsp;Rain Gauge<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="Raingauge_Overview.aspx">Rain Gauge Overview</a></li>
+                    <li><a href="Raingauge_Summary_Station.aspx">Rain Gauge Summary Station</a></li>
+                    <li><a href="Raingauge_Monitor_Map.aspx">Rain Gauge Monitoring Map</a></li>
+                    <li><a href="Raingauge_Month.aspx">Rain Gauge Summary Month</a></li>
+                    <li><a href="Raingauge_All_Lastest.aspx">Rain Gauge All Latest</a></li>
+                    <li><a href="Raingauge_Data.aspx">Rain Gauge Raw Data</a></li>
+                </ul>
+            </li>
+
+            <li style='display:block'><a><i class="fas fa-bar-chart-o fa-lg"></i>&nbsp;&nbsp;Surface Data (MAWS)<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="MawsMonitor.aspx">Surface Data Overview</a></li>
+                    <li><a href="Maws_Surface_Raw_Data.aspx">Surface Raw Data</a></li>
+                    <li><a href="Maws_Wind_Raw_Data.aspx">Surface Wind Raw Data</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+            
+            
+            
+            
+            
+        </ul>
+    </div>
+
+
+</div>
+
+                        
+                    </div>
+                </div>
+
+                <!-- top navigation -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle" onclick="loadMenu()"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                        <img id="ctl00_img_User" src="FILES/USER/2_S__4661252.jpg" style="border-width:0px;" />
+                                        <span id="ctl00_lb_UserName">User User</span>
+
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        
+                                        <li><a href="ChangePassword.aspx">Change Password <i class="fa fa-key pull-right"></i></a></li>
+                                        
+
+                                        <li><a href="Logoff.aspx"><i class="fa fa-sign-out-alt pull-right"></i>Log Out</a></li>
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /top navigation -->
+
+
+                <div id="login-signup-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <!-- signup modal content -->
+                        <div class="modal-content" id="signup-modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">Change Password</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="Signin-Form" role="form" novalidate="">
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                            <input name="ctl00$oldpassword" type="password" id="ctl00_oldpassword" class="form-control input-lg" autocomplete="off" placeholder="Current Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                            <input name="ctl00$passwd" type="password" id="ctl00_passwd" class="form-control input-lg" autocomplete="off" placeholder="New Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+
+                                            <input name="ctl00$cpasswd" type="password" id="ctl00_cpasswd" class="form-control input-lg" autocomplete="off" placeholder="Confirm New Password" />
+                                        </div>
+                                    </div>
+                                    <input type="submit" name="ctl00$btSubmit" value="Change Password" onclick="if ( ! changePassword()) return false;" id="ctl00_btSubmit" class="btn btn-success btn-block btn-lg" />
+                                    <script type="text/javascript">
+                                        function changePassword() {
+                                            return confirm("Are you sure you want to change password?");
+                                        }
+                                        function changeNoComplete() {
+                                            return confirm("Change Password Error!!!");
+                                        }
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <div id="profile-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <!-- signup modal content -->
+                        <div class="modal-content" id="profile-modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title">Change Profile Picture</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" id="profile-Form" role="form" novalidate="">
+                                    <div id="ctl00_divM1" class="col-md-12">
+                                        <div class="col-md-12" align="center">
+
+                                            <span id="ctl00_imgfl1"><img src='FILES/User/2_S__4661252.jpg' width='150px'></span>
+                                            <input type="hidden" name="ctl00$hdfl1" id="ctl00_hdfl1" value="2_S__4661252.jpg" />
+                                            <br />
+                                            <a onclick="return confirm(&#39;Delete Picture 1?&#39;);" id="ctl00_btBin1" data-placement="top" data-toggle="tooltip" data-original-title="Delete Picture" href="javascript:__doPostBack(&#39;ctl00$btBin1&#39;,&#39;&#39;)">
+                                                    <i class="btn btn-sm fa fa-eraser fa-lg"></i></a>
+
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+                                        <input type="submit" name="ctl00$btProfilePic" value="Change Profile Picture" onclick="if ( ! changePassword()) return false;" id="ctl00_btProfilePic" class="btn btn-success btn-block btn-lg" />
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
+
+                <!-- page content -->
+                <div class="right_col" role="main">
+
+                    <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'aspnetForm', ['tctl00$UpdatePanel1',''], [], ['ctl00$ContentPlaceHolder1$dl_RAINGAUGE','','ctl00$ContentPlaceHolder1$btSearch','','ctl00$ContentPlaceHolder1$linkExportTxt','','ctl00$btBin1',''], 90, 'ctl00');
+//]]>
+</script>
+
+
+                    <div id="ctl00_UpdatePanel1">
+	
+                            
+    <div class="">
+        <div class="page-title">
+
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Rain Gauge Raw Data</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                            <div class="col-md-4">
+                                <span class="title">
+                                    <h4>Rain Gauge Station</h4>
+                                </span>
+                                <div class='input-group date'>
+                                    <select name="ctl00$ContentPlaceHolder1$dl_RAINGAUGE" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$dl_RAINGAUGE\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_ContentPlaceHolder1_dl_RAINGAUGE" class="form-control">
+		<option selected="selected" value="">--= Show all </option>
+		<option value="G1001">G1001 - King Mongkut is Institute of Technology Ladkrabang Prince of Chumphon Campus </option>
+		<option value="G1002">G1002 - Ban Bang Waen Sub-District Health Promoting Hospital </option>
+		<option value="G1003">G1003 - Salui Sub-District Health Promoting Hospital </option>
+		<option value="G1004">G1004 - Ban Tham Charoen Sub-District Health Promoting Hospital</option>
+		<option value="G1005">G1005 - Ban Panwan Sub-District Health Promoting Hospital</option>
+		<option value="G1006">G1006 - Tha Sae Sub-District Health Promoting Hospital</option>
+		<option value="G1007">G1007 - Ban Wang Mai Sub-District Health Promoting Hospital </option>
+		<option value="G1008">G1008 - Bang Mak Sub-District Health Promoting Hospital</option>
+		<option value="G1009">G1009 - Ban Nam Cha Sub-District Health Promoting Hospital </option>
+		<option value="G1010">G1010 - Chong Mai Kaeo Sub-District Health Promoting Hospital</option>
+		<option value="G1011">G1011 - Khao Khai Sub-District Health Promoting Hospital </option>
+		<option value="G1012">G1012 -  Na Phaya Health Promoting Hospital </option>
+		<option value="G1013">G1013 - Ban Nai Hom Sub-District Health Promoting Hospital </option>
+		<option value="G1014">G1014 - Ban Khlong Song Sub-District Health Promoting Hospital</option>
+		<option value="G1015">G1015 - Lum Laieng Health Promoting Hospital </option>
+		<option value="G1016">G1016 - Sai Daeng Health Promoting Hospital </option>
+		<option value="G1017">G1017 - Bangrin Town Municipality</option>
+		<option value="G1018">G1018 - Ratchakrut Sub-District Health Promoting Hospital </option>
+		<option value="G1019">G1019 - Ban Khian Ngam Sub-District Health Promoting Hospital </option>
+		<option value="G1020">G1020 - Phong Prasat Health Promoting Hospital</option>
+		<option value="G1021">G1021 - Ban Huai Kai Tor Health Promoting Hospital </option>
+		<option value="G1022">G1022 - Chang Khwa Sub-District Health Promoting Hospital </option>
+		<option value="G1023">G1023 - Khlong Noi  Sub-District Health Promoting Hospital </option>
+		<option value="G1024">G1024 - Ban Yang Phrong Sub-District Health Promoting Hospital </option>
+		<option value="G1025">G1025 - Pa We Sub-District Health Promoting Hospital </option>
+		<option value="G1026">G1026 - Khlong Pha Sub-District Health Promoting Hospital </option>
+		<option value="G1027">G1027 - Takuk Nuea Sub-District Health Promoting Hospital </option>
+		<option value="G1028">G1028 - Tham Singkhon Sub-District Health Promoting Hospital </option>
+		<option value="G1029">G1029 - Ban Bang Charoen Sub-District Health Promoting Hospital </option>
+		<option value="G1030">G1030 - Ban Sai Thong Sub-District Health Promoting Hospital </option>
+		<option value="G1031">G1031 - Thong Mongkon Sub-District Health Promoting Hospital </option>
+		<option value="G1032">G1032 - Bang Saphan District Agricultural Extension Office</option>
+		<option value="G1033">G1033 - Ban Khlong Loi Sub-District Health Promoting Hospital </option>
+		<option value="G1034">G1034 - Ban Tham Khiriwong Sub-District Health Promoting Hospital </option>
+		<option value="G1035">G1035 - Ban Nong Hoi Sub-District Health Promoting Hospital </option>
+		<option value="G1036">G1036 - Khao Lan Sub-District Health Promoting Hospital </option>
+		<option value="G1037">G1037 - Huai Yang Sub-District Health Promoting Hospital </option>
+		<option value="G1038">G1038 - Khlong Wan Sub-District Health Promoting Hospital </option>
+		<option value="G1039">G1039 - Ban Dan Singkhon Sub-District Health Promoting Hospital </option>
+		<option value="G1040">G1040 - Nikhom Sang Ton Eng Ko 12 Sub-District Health Promoting Hospital </option>
+		<option value="G1041">G1041 - Ban Nong Pulok Sub-District Health Promoting Hospital </option>
+		<option value="G1042">G1042 - Ban Thung Ko Sub-District Health Promoting Hospital </option>
+		<option value="G1043">G1043 - Phrakhru Niyuttham Sunthon Sub-District Health Promoting Hospital </option>
+		<option value="G1044">G1044 - Ban Ruam Thai Sub-District Health Promoting Hospital</option>
+		<option value="G1045">G1045 -  Ban Nong Masang Health Promoting Hospital </option>
+		<option value="G1046">G1046 - Ban Nong Kae Sub-District Health Promoting Hospital</option>
+		<option value="G1047">G1047 - Ban Nong Ta Muang Sub-District Health Promoting Hospital </option>
+		<option value="G1048">G1048 - Ban Khao Chao Sub-District Health Promoting Hospital </option>
+		<option value="G1049">G1049 - Ban Phraek Takhro Sub-District Health Promoting Hospital </option>
+		<option value="G1050">G1050 - Pranburi Operation and Maintenance Project </option>
+		<option value="G1099">G1099 - Test Stationa</option>
+
+	</select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="title">
+                                    <h4>Date</h4>
+                                </span>
+                                <div class='input-group date' id='myDatepicker'>
+                                    <input name="ctl00$ContentPlaceHolder1$tbDate" type="text" value="06/11/2025" id="ctl00_ContentPlaceHolder1_tbDate" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="title">
+                                    <h4>Time (UTC)</h4>
+                                </span>
+                                <div class='input-group date' id='myDatepicker3'>
+                                    <input name="ctl00$ContentPlaceHolder1$tbTime" type="text" value="15:01" id="ctl00_ContentPlaceHolder1_tbTime" class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="title">
+                                    <h4>&nbsp;</h4>
+                                </span>
+                                <input type="submit" name="ctl00$ContentPlaceHolder1$btSearch" value="Search" id="ctl00_ContentPlaceHolder1_btSearch" class="btn btn-success" style="width:100%;" />
+                            </div>
+                            <div class="col-md-1">
+                                <span class="title">
+                                    <h4>&nbsp;</h4>
+                                </span>
+                                
+
+                            </div>
+                            <div class="col-md-1">
+                                <span class="title">
+                                    <h4>&nbsp;</h4>
+                                </span>
+                                <a id="ctl00_ContentPlaceHolder1_linkExportTxt" class="btn btn-warning" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$linkExportTxt&#39;,&#39;&#39;)">Export File</a>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="panel-body">
+                            <p style="text-align: right"><b>Max 1,000 Records</b></p>
+                            <div>
+		<table class="table table-bordered" cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_gvWOR" style="width:100%;border-collapse:collapse;">
+			<tr class="HeaderStyleITC" style="color:White;background-color:#49515B;">
+				<th class="text-center" scope="col">NO</th><th class="text-center" scope="col"><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Sort$RAIN_DATE_TIME&#39;)" style="color:White;">LATEST DATA<br>(UTC)</a></th><th class="text-center" scope="col">ID</th><th class="text-center" scope="col">CODE</th><th class="text-center" scope="col">Count<br>(times)</th><th class="text-center" scope="col">MIN<br>(mm)</th><th class="text-center" scope="col">24HR<br>(mm)</th><th class="text-center" scope="col">Temperature<br>(°C)</th><th class="text-center" scope="col">Relative <br>Humidity (%)</th><th class="text-center" scope="col">VBATT<br>(V)</th><th class="text-center" scope="col">Solar Panels<br>Voltages (V)</th><th class="text-center" scope="col">SIM Signal</th>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            1
+                                        </td><td align="center">
+                                            06/11/2025 15:01:00
+                                        </td><td align="center">
+                                            181
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1020">G1020</a>
+                                        </td><td align="center">
+                                            1
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            0.6
+                                        </td><td align="center">
+                                            27.3
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            1.3
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            2
+                                        </td><td align="center">
+                                            06/11/2025 15:01:00
+                                        </td><td align="center">
+                                            185
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1017">G1017</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            1.8
+                                        </td><td align="center">
+                                            25.5
+                                        </td><td align="center">
+                                            87.3
+                                        </td><td align="center">
+                                            11.8
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            14
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            3
+                                        </td><td align="center">
+                                            06/11/2025 15:01:00
+                                        </td><td align="center">
+                                            296
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1018">G1018</a>
+                                        </td><td align="center">
+                                            2
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            54.8
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            22
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            4
+                                        </td><td align="center">
+                                            06/11/2025 15:01:00
+                                        </td><td align="center">
+                                            261
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1027">G1027</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            45.0
+                                        </td><td align="center">
+                                            25.1
+                                        </td><td align="center">
+                                            95.0
+                                        </td><td align="center">
+                                            12.2
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            5
+                                        </td><td align="center">
+                                            06/11/2025 15:01:00
+                                        </td><td align="center">
+                                            987
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1040">G1040</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            51.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            11.9
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            31
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            6
+                                        </td><td align="center">
+                                            06/11/2025 15:01:00
+                                        </td><td align="center">
+                                            182
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1007">G1007</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            25.7
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            11.7
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            14
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            7
+                                        </td><td align="center">
+                                            06/11/2025 15:00:59
+                                        </td><td align="center">
+                                            189
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1012">G1012</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            3.8
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            13.6
+                                        </td><td align="center">
+                                            0.8
+                                        </td><td align="center">
+                                            13
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            8
+                                        </td><td align="center">
+                                            06/11/2025 15:00:59
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1020">G1020</a>
+                                        </td><td align="center">
+                                            1
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            27.4
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            1.3
+                                        </td><td align="center">
+                                            18
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            9
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            658
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1006">G1006</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            31.8
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.4
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            17
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            10
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            6317
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1024">G1024</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            24.7
+                                        </td><td align="center">
+                                            97.7
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            11
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            295
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1018">G1018</a>
+                                        </td><td align="center">
+                                            2
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            54.4
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.2
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            22
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            12
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            184
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1017">G1017</a>
+                                        </td><td align="center">
+                                            1
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            1.8
+                                        </td><td align="center">
+                                            25.5
+                                        </td><td align="center">
+                                            87.4
+                                        </td><td align="center">
+                                            11.9
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            13
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            13
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1038">G1038</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            27.1
+                                        </td><td align="center">
+                                            100.0
+                                        </td><td align="center">
+                                            12.1
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            21
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            14
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1046">G1046</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            25.9
+                                        </td><td align="center">
+                                            28.9
+                                        </td><td align="center">
+                                            11.6
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            13
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            15
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            179
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1034">G1034</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            26.8
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.4
+                                        </td><td align="center">
+                                            1.4
+                                        </td><td align="center">
+                                            0
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            16
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            4622
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1003">G1003</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            192.6
+                                        </td><td align="center">
+                                            24.4
+                                        </td><td align="center">
+                                            94.3
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            1.5
+                                        </td><td align="center">
+                                            23
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            17
+                                        </td><td align="center">
+                                            06/11/2025 15:00:00
+                                        </td><td align="center">
+                                            179
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1039">G1039</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            26.1
+                                        </td><td align="center">
+                                            93.6
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            14
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            18
+                                        </td><td align="center">
+                                            06/11/2025 14:59:59
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1031">G1031</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            26.3
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.1
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            19
+                                        </td><td align="center">
+                                            06/11/2025 14:59:00
+                                        </td><td align="center">
+                                            225
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1011">G1011</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            15.8
+                                        </td><td align="center">
+                                            24.7
+                                        </td><td align="center">
+                                            98.1
+                                        </td><td align="center">
+                                            12.2
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            13
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            20
+                                        </td><td align="center">
+                                            06/11/2025 14:59:00
+                                        </td><td align="center">
+                                            294
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1018">G1018</a>
+                                        </td><td align="center">
+                                            1
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            54.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            22
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            21
+                                        </td><td align="center">
+                                            06/11/2025 14:59:00
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1001">G1001</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            26.4
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            11
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            22
+                                        </td><td align="center">
+                                            06/11/2025 14:59:00
+                                        </td><td align="center">
+                                            181
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1021">G1021</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            25.7
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            11.9
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            23
+                                        </td><td align="center">
+                                            06/11/2025 14:59:00
+                                        </td><td align="center">
+                                            918
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1049">G1049</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            47.8
+                                        </td><td align="center">
+                                            25.8
+                                        </td><td align="center">
+                                            94.3
+                                        </td><td align="center">
+                                            11.6
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            24
+                                        </td><td align="center">
+                                            06/11/2025 14:59:00
+                                        </td><td align="center">
+                                            12299
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1033">G1033</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            35.0
+                                        </td><td align="center">
+                                            25.9
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            11.8
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            25
+                                        </td><td align="center">
+                                            06/11/2025 14:59:00
+                                        </td><td align="center">
+                                            2720
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1044">G1044</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            52.4
+                                        </td><td align="center">
+                                            31.0
+                                        </td><td align="center">
+                                            100.0
+                                        </td><td align="center">
+                                            11.7
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            26
+                                        </td><td align="center">
+                                            06/11/2025 14:58:59
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1048">G1048</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            25.3
+                                        </td><td align="center">
+                                            94.2
+                                        </td><td align="center">
+                                            12.4
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            12
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            27
+                                        </td><td align="center">
+                                            06/11/2025 14:58:59
+                                        </td><td align="center">
+                                            181
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1047">G1047</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            25.2
+                                        </td><td align="center">
+                                            92.6
+                                        </td><td align="center">
+                                            12.6
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            28
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            271
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1028">G1028</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            38.2
+                                        </td><td align="center">
+                                            25.3
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.1
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            29
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            293
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1018">G1018</a>
+                                        </td><td align="center">
+                                            2
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            53.8
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            22
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            30
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            224
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1019">G1019</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            14.4
+                                        </td><td align="center">
+                                            25.4
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            0.5
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            31
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            228
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1010">G1010</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            17.2
+                                        </td><td align="center">
+                                            26.4
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            11.8
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            32
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            265
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1022">G1022</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            29.4
+                                        </td><td align="center">
+                                            25.2
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            13
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            33
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1041">G1041</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            14
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            34
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1008">G1008</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            25.3
+                                        </td><td align="center">
+                                            93.0
+                                        </td><td align="center">
+                                            11.8
+                                        </td><td align="center">
+                                            0.8
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            35
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            1226
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1045">G1045</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            25.4
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.4
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            36
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            261
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1023">G1023</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            45.2
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            11.6
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            37
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            3086
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1002">G1002</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            82.0
+                                        </td><td align="center">
+                                            25.7
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.2
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            38
+                                        </td><td align="center">
+                                            06/11/2025 14:58:00
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1037">G1037</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            22.5
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.1
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            17
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            39
+                                        </td><td align="center">
+                                            06/11/2025 14:57:00
+                                        </td><td align="center">
+                                            181
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1042">G1042</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            26.9
+                                        </td><td align="center">
+                                            90.3
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            40
+                                        </td><td align="center">
+                                            06/11/2025 14:57:00
+                                        </td><td align="center">
+                                            292
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1018">G1018</a>
+                                        </td><td align="center">
+                                            2
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            53.4
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.4
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            22
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            41
+                                        </td><td align="center">
+                                            06/11/2025 14:57:00
+                                        </td><td align="center">
+                                            270
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1028">G1028</a>
+                                        </td><td align="center">
+                                            1
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            38.2
+                                        </td><td align="center">
+                                            25.3
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.1
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            14
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            42
+                                        </td><td align="center">
+                                            06/11/2025 14:57:00
+                                        </td><td align="center">
+                                            180
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1043">G1043</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            26.7
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            43
+                                        </td><td align="center">
+                                            06/11/2025 14:57:00
+                                        </td><td align="center">
+                                            3188
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1029">G1029</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            209.4
+                                        </td><td align="center">
+                                            24.6
+                                        </td><td align="center">
+                                            -4.0
+                                        </td><td align="center">
+                                            12.5
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            13
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            44
+                                        </td><td align="center">
+                                            06/11/2025 14:57:00
+                                        </td><td align="center">
+                                            6316
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1024">G1024</a>
+                                        </td><td align="center">
+                                            1
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            24.7
+                                        </td><td align="center">
+                                            97.7
+                                        </td><td align="center">
+                                            12.1
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            45
+                                        </td><td align="center">
+                                            06/11/2025 14:57:00
+                                        </td><td align="center">
+                                            181
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1035">G1035</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            27.0
+                                        </td><td align="center">
+                                            44.4
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            46
+                                        </td><td align="center">
+                                            06/11/2025 14:56:59
+                                        </td><td align="center">
+                                            181
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1007">G1007</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.4
+                                        </td><td align="center">
+                                            25.7
+                                        </td><td align="center">
+                                            -3.9
+                                        </td><td align="center">
+                                            12.0
+                                        </td><td align="center">
+                                            0.3
+                                        </td><td align="center">
+                                            16
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            47
+                                        </td><td align="center">
+                                            06/11/2025 14:56:00
+                                        </td><td align="center">
+                                            260
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1027">G1027</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            45.0
+                                        </td><td align="center">
+                                            25.1
+                                        </td><td align="center">
+                                            95.0
+                                        </td><td align="center">
+                                            12.2
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            14
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            48
+                                        </td><td align="center">
+                                            06/11/2025 14:56:00
+                                        </td><td align="center">
+                                            291
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1018">G1018</a>
+                                        </td><td align="center">
+                                            3
+                                        </td><td align="center">
+                                            0.6
+                                        </td><td align="center">
+                                            53.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            0.1
+                                        </td><td align="center">
+                                            22
+                                        </td>
+			</tr><tr class="RowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;RowStyle_ITC&#39;">
+				<td align="center">
+                                            49
+                                        </td><td align="center">
+                                            06/11/2025 14:56:00
+                                        </td><td align="center">
+                                            179
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1036">G1036</a>
+                                        </td><td align="center">
+                                            0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            0.0
+                                        </td><td align="center">
+                                            27.1
+                                        </td><td align="center">
+                                            89.9
+                                        </td><td align="center">
+                                            12.3
+                                        </td><td align="center">
+                                            1.2
+                                        </td><td align="center">
+                                            10
+                                        </td>
+			</tr><tr class="AltRowStyle_ITC" onmouseover="this.className=&#39;SelectedRowStyle&#39;" onmouseout="this.className = &#39;AltRowStyle_ITC&#39;">
+				<td align="center">
+                                            50
+                                        </td><td align="center">
+                                            06/11/2025 14:56:00
+                                        </td><td align="center">
+                                            183
+                                        </td><td align="center">
+                                            <a href="Raingauge_Summary_Station.aspx?id=G1017">G1017</a>
+                                        </td><td align="center">
+                                            1
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            1.6
+                                        </td><td align="center">
+                                            25.5
+                                        </td><td align="center">
+                                            87.6
+                                        </td><td align="center">
+                                            11.9
+                                        </td><td align="center">
+                                            0.2
+                                        </td><td align="center">
+                                            15
+                                        </td>
+			</tr><tr class="PagerStyle">
+				<td colspan="12"><table border="0">
+					<tr>
+						<td><span>1</span></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$2&#39;)">2</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$3&#39;)">3</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$4&#39;)">4</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$5&#39;)">5</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$6&#39;)">6</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$7&#39;)">7</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$8&#39;)">8</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$9&#39;)">9</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$10&#39;)">10</a></td><td><a href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvWOR&#39;,&#39;Page$11&#39;)">...</a></td>
+					</tr>
+				</table><div class="pageControlLeft">
+					<span>Records Per Show : </span><select name="ctl00$ContentPlaceHolder1$gvWOR$ctl53$ctl15" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$ContentPlaceHolder1$gvWOR$ctl53$ctl15\&#39;,\&#39;\&#39;)&#39;, 0)" class="form-control" ControlGrid="ctl00_ContentPlaceHolder1_gvWOR" style="width:100%;">
+						<option selected="selected" value="20">20</option>
+						<option value="30">30</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+
+					</select>
+				</div><div class="pageControlRight">
+					<button onclick="__doPostBack('ctl00$ContentPlaceHolder1$gvWOR$ctl53$ctl16','')" class="btn btn-success" ControlGrid="ctl00_ContentPlaceHolder1_gvWOR">Show All Records</button>
+				</div></td>
+			</tr>
+		</table>
+	</div>
+                            Limit 1,000 Records
+                            <span id="ctl00_ContentPlaceHolder1_lb_Test"></span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- jQuery -->
+        <script src="vendors/jquery/dist/jquery.min.js"></script>
+
+        <!-- bootstrap-daterangepicker -->
+        <script src="vendors/moment/min/moment.min.js"></script>
+
+        <!-- bootstrap-datetimepicker -->
+        <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+        <!-- Custom Theme Scripts -->
+        <script src="build/js/custom.min.js"></script>
+
+        <script>
+
+            function loadDate() {
+                $('#myDatepicker').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                });
+
+                $('#myDatepicker3').datetimepicker({
+                    format: 'HH:mm'
+                });
+            }
+
+            $('#myDatepicker').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+
+            $('#myDatepicker3').datetimepicker({
+                format: 'HH:mm'
+            });
+
+        </script>
+
+
+                        
+</div>
+
+                </div>
+                <!-- /page content -->
+
+                <!-- footer content -->
+                <footer>
+
+
+                    <div class="pull-right">Weather Data Storage System</div>
+                    <div class="clearfix"></div>
+
+                </footer>
+                <!-- /footer content -->
+            </div>
+
+        </div>
+
+        <!-- jQuery -->
+
+        
+        <!-- Bootstrap -->
+        <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="vendors/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="vendors/nprogress/nprogress.js"></script>
+        <!-- Chart.js -->
+        <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+        <!-- gauge.js -->
+        <script src="vendors/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="vendors/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="vendors/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="vendors/Flot/jquery.flot.js"></script>
+        <script src="vendors/Flot/jquery.flot.pie.js"></script>
+        <script src="vendors/Flot/jquery.flot.time.js"></script>
+        <script src="vendors/Flot/jquery.flot.stack.js"></script>
+        <script src="vendors/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="vendors/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="vendors/DateJS/build/date.js"></script>
+        <!-- JQVMap -->
+        <script src="vendors/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+
+        <!-- Custom Theme Scripts -->
+        <script src="build/js/custom.min.js"></script>
+
+    </body>
+</form>
+</html>
